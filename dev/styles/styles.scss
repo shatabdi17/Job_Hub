@@ -1,0 +1,19 @@
+@import "setup";
+@import "typography";
+
+/*  GENERAL STYLES */
+html {
+    font-size: 62.5%;
+    margin: 0 auto;
+    width: 100%;
+    max-width: 1920px;
+    color: $black;
+    font-family: $raleway;
+}
+
+body { 
+    font-size: 2.5vh;
+    line-height: 1.6;
+}
+
+
