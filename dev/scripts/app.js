@@ -13,17 +13,14 @@ const config = {
   messagingSenderId: "959198869600"
 };
 
-
 firebase.initializeApp(config);
 
-class App extends React.Component {
-    render() {
-      return (
-        <div>
-          Hello
-        </div>
-      )
-    }
+render() {
+  return (
+    <div>
+      Hello
+    </div>
+  )
 }
 
 ReactDOM.render(<App />, document.getElementById('app'));
