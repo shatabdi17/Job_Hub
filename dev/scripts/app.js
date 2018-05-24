@@ -2,12 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import firebase from 'firebase';
 import axios from 'axios';
-import {
-  BrowserRouter as Router,
-  Route,
-  Link,
-  NavLink
-} from "react-router-dom";
+import {BrowserRouter as Router,Route,Link,NavLink} from "react-router-dom";
+import JobSearch from './JobSearch';
+import JobSaved from './JobSaved';
 
 
 // Initialize Firebase
@@ -20,48 +17,109 @@ const config = {
   messagingSenderId: "959198869600"
 };
 
-
-
 firebase.initializeApp(config);
 
 class App extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
-      location: 'Toronto',
-      jobs: []
+      user: null,
+      //userName: '',
+      loggedIn: false,
+      jobsSaved: {}
     };
+
+    this.signOut = this.signOut.bind(this);
+    this.signIn = this.signIn.bind(this);
   }
   componentDidMount() {
-    axios.get(
-      "https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",
-      {
-        params: {
-          publisher: "2117056629901044",
-          v: 2,
-          format: "json",
-          q: "Marketing",
-          l: this.state.locationToSearch,
-          co: "ca",
 
-          start: this.state.currentPage * 10,
-          limit: 10
-        }
+   this.dbRef = firebase.database().ref(`users/${this.state.user}`);
+
+    firebase.auth().onAuthStateChanged((user) => {
+      if (user) {
+        this.dbRef.on('value', (snapshot) => {
+          //console.log(snapshot.val());
+          // if (snapshot.val().jobsSaved) {
+          //   this.setState({
+          //     jobsSaved: snapshot.val().jobsSaved
+          //   })
+          // }
+        });
+        this.setState({
+          loggedIn: true,
+          //user: user.uid,
+          //userName: user.displayName
+        });
+      } else {
+        this.setState({
+          user: null,
+          userName: '',
+          loggedIn: false,
+          jobsSaved: {}
+        });
       }
-    ).then((res) => {
-      console.log(res);
-      this.setState({
-        jobs: res.data.results
-      })
+
+
     })
   }
+
+  /**
+    * Signs the user in.
+    */
+  signIn() {
+    const provider = new firebase.auth.GoogleAuthProvider();
+
+    firebase.auth().signInWithPopup(provider)
+    .then((user) => {
+      console.log(user);
+    })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  /**
+   * Signs the user out.
+   */
+  signOut() {
+    firebase.auth().signOut() 
+      //console.log('Signed out!')
+    this.dbRef.off('value');
+  }
+
+
   render() {
     return (
       <div>
-        Hello
+        {this.state.loggedIn === false && <button onClick=
+          {this.signIn}>Log in with Google</button>}
+
+        {this.state.loggedIn === true ? <button onClick={this.signOut}
+        >Log Out</button> : null}
       </div>
     )
   }
 }
+  
+
+  
+  // render() {
+  //   return (
+  //     <Router>
+  //     <div>
+  //         <Link to={`/jobsaved/`}>List of Saved Jobs</Link>
+  //         <Route
+  //           path="jobsaved/"
+  //           component={JobSaved}
+            
+  //         />
+          
+
+  //     </div>
+  //     </Router>
+  //   )
+  // }
+
 
 ReactDOM.render(<App />, document.getElementById('app'));
