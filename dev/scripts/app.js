@@ -19,6 +19,14 @@ const config = {
 
 firebase.initializeApp(config);
 
+
+render() {
+  return (
+    <div>
+      Hello
+    </div>
+  )
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -100,6 +108,7 @@ class App extends React.Component {
       </div>
     )
   }
+
 }
   
 
