@@ -110,10 +110,13 @@ class App extends React.Component {
         }
       }
     ).then((res) => {
-      //console.log(res);
-      this.setState({
-        jobs: res.data.results
-      })
+      if (res.data.results.length === 0) {
+        alert('Please specify a valid city');
+      } else {
+        this.setState({
+          jobs: res.data.results
+        })
+      }
     })
   }
 
