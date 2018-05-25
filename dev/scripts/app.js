@@ -25,7 +25,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: null,
-      //userName: '',
+      userName: '',
       loggedIn: false,
       jobsSaved: {},
       location: 'Toronto',
@@ -47,8 +47,7 @@ class App extends React.Component {
         this.setState({
           loggedIn: true,
           user: user.uid,
-          
-          //userName: user.displayName
+          userName: user.displayName
         });
         this.dbRef = firebase.database().ref(`users/${this.state.user}`);
         console.log(this.dbRef);
@@ -160,7 +159,7 @@ class App extends React.Component {
           {this.signIn}>Log in with Google</button>}
 
         {this.state.loggedIn === true ? <button className="signOut btn" onClick={this.signOut}
-        >Log Out</button> : null}
+        >Log Out{this.state.userName}</button> : null}
 
 
         <input onKeyDown={(e) => { if (e.keyCode === 13) this.searchForJobs() }} onChange={this.setLocationToSearch} id="location-input" type="text" name="" id="" placeholder="Enter City" />
