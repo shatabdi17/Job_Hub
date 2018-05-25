@@ -3,7 +3,7 @@ import Link from 'react-router-dom';
 
 const JobSearchResults = (props) => {
     return (
-        <div key={props.jobKey}>
+        <div>
             <div id={props.jobKey} className="search-result">
                 <div><i className="fas fa-check-circle"></i></div>
                 <h3 className="job-title">{props.jobTitle}</h3>
@@ -15,7 +15,7 @@ const JobSearchResults = (props) => {
 
                 {props.hideSaveButton || props.loggedIn === false
                     ? null
-                    : <button onClick={() => {props.onSave(props.jobKey) }} className="save-button">
+                    : <button onClick={() => props.onSave(props.jobKey)} className="save-button">
                         {!props.saved ? "Save" : "Remove From Saved Jobs"}
                     </button>
                 }
