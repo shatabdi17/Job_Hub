@@ -13,7 +13,7 @@ const JobSearchResults = (props) => {
                 <p className="job-time">{props.time}</p>
                 <a className="more-info" href={props.url} target="_blank">More Info</a>
 
-                {props.hideSaveButton || !props.SignIn
+                {props.hideSaveButton || props.loggedIn === false
                     ? null
                     : <button onClick={() => {props.onSave(props.jobKey) }} className="save-button">
                         {!props.saved ? "Save" : "Remove From Saved Jobs"}

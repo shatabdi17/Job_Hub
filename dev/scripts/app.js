@@ -43,7 +43,8 @@ class App extends React.Component {
     this.dbRef = firebase.database().ref(`users/${this.state.user}`);
 
     firebase.auth().onAuthStateChanged((user) => {
-      if (user) {
+      console.log(this.state);
+      if (user !== null) {
         this.dbRef.on('value', (snapshot) => {
           //console.log(snapshot.val());
           // if (snapshot.val().jobsSaved) {
@@ -51,6 +52,7 @@ class App extends React.Component {
           //     jobsSaved: snapshot.val().jobsSaved
           //   })
           // }
+          
         });
         this.setState({
           loggedIn: true,
@@ -59,10 +61,7 @@ class App extends React.Component {
         });
       } else {
         this.setState({
-          user: null,
-          userName: '',
-          loggedIn: false,
-          jobsSaved: {}
+          loggedIn: false
         });
       }
 
@@ -79,6 +78,9 @@ class App extends React.Component {
     firebase.auth().signInWithPopup(provider)
     .then((user) => {
       console.log(user);
+      this.setState({
+        loggedIn: true
+      })
     })
       .catch((err) => {
         console.log(err);
@@ -92,6 +94,9 @@ class App extends React.Component {
     firebase.auth().signOut() 
       //console.log('Signed out!')
     this.dbRef.off('value');
+    this.setState({
+      loggedIn: false
+    })
   }
 
   searchForJobs() {
@@ -137,6 +142,11 @@ class App extends React.Component {
       location: e.target.value
     })
   }
+
+  saveJob(key, e) {
+    e.preventDefault();
+    console.log(key);
+  }
   
 
 
@@ -154,7 +164,7 @@ class App extends React.Component {
         <button className="Search btn" onClick={this.searchForJobs}>Find Jobs Now</button>
         
         {this.state.jobs.map((job) => {
-          return <JobSearchResults jobKey={job.key} jobTitle={job.jobtitle} company={job.company} snippet={job.snippet} time={job.formattedRelativeTime} url={job.url} />
+          return <JobSearchResults jobKey={job.key} jobTitle={job.jobtitle} company={job.company} snippet={job.snippet} time={job.formattedRelativeTime} url={job.url} onSave={this.saveJob} loggedIn={this.state.loggedIn} />
         })}
       </div>
     )
