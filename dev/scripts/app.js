@@ -111,6 +111,12 @@ class App extends React.Component {
         }
       }
     ).then((res) => {
+
+      console.log(res);
+      this.setState({
+        jobs: res.data.results
+      })
+
       if (res.data.results.length === 0) {
         swal({
           title: "Please select an answer!",
@@ -122,6 +128,7 @@ class App extends React.Component {
           jobs: res.data.results
         })
       }
+
     })
   }
 
@@ -136,15 +143,15 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {this.state.loggedIn === false && <button onClick=
+        {this.state.loggedIn === false && <button className="signIn btn" onClick=
           {this.signIn}>Log in with Google</button>}
 
-        {this.state.loggedIn === true ? <button onClick={this.signOut}
+        {this.state.loggedIn === true ? <button className="signOut btn" onClick={this.signOut}
         >Log Out</button> : null}
 
 
         <input onKeyDown={(e) => { if (e.keyCode === 13) this.searchForJobs() }} onChange={this.setLocationToSearch} id="location-input" type="text" name="" id="" placeholder="Enter City" />
-        <button onClick={this.searchForJobs}>Find Jobs Now</button>
+        <button className="Search btn" onClick={this.searchForJobs}>Find Jobs Now</button>
         
         {this.state.jobs.map((job) => {
           return <JobSearchResults jobKey={job.key} jobTitle={job.jobtitle} company={job.company} snippet={job.snippet} time={job.formattedRelativeTime} url={job.url} />
