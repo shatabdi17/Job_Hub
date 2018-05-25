@@ -41,11 +41,17 @@ class App extends React.Component {
   }
   componentDidMount() {
 
-    this.dbRef = firebase.database().ref(`users/${this.state.user}`);
 
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(this.state);
       if (user !== null) {
+        this.setState({
+          loggedIn: true,
+          user: user.uid,
+          
+          //userName: user.displayName
+        });
+        this.dbRef = firebase.database().ref(`users/${this.state.user}`);
+        console.log(this.dbRef);
         this.dbRef.on('value', (snapshot) => {
           //console.log(snapshot.val());
           // if (snapshot.val().jobsSaved) {
@@ -54,11 +60,6 @@ class App extends React.Component {
           //   })
           // }
           
-        });
-        this.setState({
-          loggedIn: true,
-          user: user.uid,
-          //userName: user.displayName
         });
       } else {
         this.setState({
@@ -69,6 +70,7 @@ class App extends React.Component {
 
     })
   }
+
 
   /**
     * Signs the user in.
