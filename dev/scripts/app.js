@@ -4,6 +4,7 @@ import firebase from 'firebase';
 import axios from 'axios';
 import {BrowserRouter as Router,Route,Link,NavLink} from "react-router-dom";
 import JobSearchResults from './JobSearchResults';
+import swal from './sweetalert'
 // import JobSaved from './JobSaved';
 
 // Initialize Firebase
@@ -111,7 +112,11 @@ class App extends React.Component {
       }
     ).then((res) => {
       if (res.data.results.length === 0) {
-        alert('Please specify a valid city');
+        swal({
+          title: "Please select an answer!",
+          icon: "warning",
+          button: "OK"
+        });
       } else {
         this.setState({
           jobs: res.data.results
