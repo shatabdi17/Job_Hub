@@ -5,7 +5,7 @@ import {BrowserRouter as Router, Route,Link,NavLink} from "react-router-dom";
 import JobSearchResults from './JobSearchResults';
 
 
-// // Initialize Firebase
+// Initialize Firebase
 // const config = {
 //     apiKey: "AIzaSyAHiIrKkJmdgDWIRWZEejkNxjfha7cExVs",
 //     authDomain: "job-search-13455.firebaseapp.com",
