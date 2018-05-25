@@ -3,7 +3,7 @@ import Link from 'react-router-dom';
 
 const JobSearchResults = (props) => {
     return (
-        <div>
+        <div key={props.jobKey}>
             <div id={props.jobKey} className="search-result">
                 <div><i className="fas fa-check-circle"></i></div>
                 <h3 className="job-title">{props.jobTitle}</h3>
