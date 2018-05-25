@@ -146,8 +146,7 @@ class App extends React.Component {
     })
   }
 
-  saveJob(key, e) {
-    e.preventDefault();
+  saveJob(key) {
     console.log(key);
   }
   
@@ -167,7 +166,7 @@ class App extends React.Component {
         <button className="Search btn" onClick={this.searchForJobs}>Find Jobs Now</button>
         
         {this.state.jobs.map((job) => {
-          return <JobSearchResults jobKey={job.key} jobTitle={job.jobtitle} company={job.company} snippet={job.snippet} time={job.formattedRelativeTime} url={job.url} onSave={this.saveJob} loggedIn={this.state.loggedIn} />
+          return <JobSearchResults key={job.jobkey} jobKey={job.jobkey} jobTitle={job.jobtitle} company={job.company} snippet={job.snippet} time={job.formattedRelativeTime} url={job.url} onSave={this.saveJob} loggedIn={this.state.loggedIn} />
         })}
 
         {/* {Object.keys(this.state.jobsSaved).length !== 0 ?
