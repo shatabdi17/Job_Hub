@@ -35,10 +35,11 @@ class App extends React.Component {
     this.signIn = this.signIn.bind(this);
     this.setLocationToSearch = this.setLocationToSearch.bind(this);
     this.searchForJobs = this.searchForJobs.bind(this);
+   
   }
   componentDidMount() {
 
-   this.dbRef = firebase.database().ref(`users/${this.state.user}`);
+    this.dbRef = firebase.database().ref(`users/${this.state.user}`);
 
     firebase.auth().onAuthStateChanged((user) => {
       if (user) {
@@ -109,7 +110,7 @@ class App extends React.Component {
         }
       }
     ).then((res) => {
-      console.log(res);
+      //console.log(res);
       this.setState({
         jobs: res.data.results
       })
@@ -117,11 +118,12 @@ class App extends React.Component {
   }
 
   setLocationToSearch(e) {
-    console.log(e.target.value);
     this.setState({
       location: e.target.value
     })
   }
+  
+
 
   render() {
     return (
@@ -137,7 +139,7 @@ class App extends React.Component {
         <button onClick={this.searchForJobs}>Find Jobs Now</button>
         
         {this.state.jobs.map((job) => {
-          return <JobSearchResults jobKey={job.jobkey} jobTitle={job.jobtitle} company={job.company} />
+          return <JobSearchResults jobKey={job.key} jobTitle={job.jobtitle} company={job.company} snippet={job.snippet} time={job.formattedRelativeTime} url={job.url} />
         })}
       </div>
     )
