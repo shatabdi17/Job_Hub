@@ -36,6 +36,7 @@ class App extends React.Component {
     this.signIn = this.signIn.bind(this);
     this.setLocationToSearch = this.setLocationToSearch.bind(this);
     this.searchForJobs = this.searchForJobs.bind(this);
+    this.saveJob = this.saveJob.bind(this);
    
   }
   componentDidMount() {
@@ -56,7 +57,7 @@ class App extends React.Component {
         });
         this.setState({
           loggedIn: true,
-          //user: user.uid,
+          user: user.uid,
           //userName: user.displayName
         });
       } else {
@@ -124,7 +125,7 @@ class App extends React.Component {
 
       if (res.data.results.length === 0) {
         swal({
-          title: "Please select an answer!",
+          title: "Please select a valid city!",
           icon: "warning",
           button: "OK"
         });
@@ -166,6 +167,15 @@ class App extends React.Component {
         {this.state.jobs.map((job) => {
           return <JobSearchResults jobKey={job.key} jobTitle={job.jobtitle} company={job.company} snippet={job.snippet} time={job.formattedRelativeTime} url={job.url} onSave={this.saveJob} loggedIn={this.state.loggedIn} />
         })}
+
+        {/* {Object.keys(this.state.jobsSaved).length !== 0 ?
+          <div className="change-page-controls">
+            <button className="test" onClick={this.changePage} id="page-last">Previous Page</button>
+            <button onClick={this.changePage} id="page-next">Next Page</button>
+          </div>
+          :
+          null
+        } */}
       </div>
     )
   }
