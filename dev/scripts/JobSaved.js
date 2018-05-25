@@ -2,7 +2,7 @@ import React from 'react';
 import firebase from 'firebase';
 import axios from 'axios';
 import {BrowserRouter as Router, Route,Link,NavLink} from "react-router-dom";
-import JobSearch from './JobSearch';
+import JobSearchResults from './JobSearchResults';
 
 
 // // Initialize Firebase

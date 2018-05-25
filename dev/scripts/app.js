@@ -3,9 +3,8 @@ import ReactDOM from 'react-dom';
 import firebase from 'firebase';
 import axios from 'axios';
 import {BrowserRouter as Router,Route,Link,NavLink} from "react-router-dom";
-import JobSearch from './JobSearch';
-import JobSaved from './JobSaved';
-
+import JobSearchResults from './JobSearchResults';
+// import JobSaved from './JobSaved';
 
 // Initialize Firebase
 const config = {
@@ -19,6 +18,7 @@ const config = {
 
 firebase.initializeApp(config);
 
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -26,11 +26,15 @@ class App extends React.Component {
       user: null,
       //userName: '',
       loggedIn: false,
-      jobsSaved: {}
+      jobsSaved: {},
+      location: 'Toronto',
+      jobs: []
     };
 
     this.signOut = this.signOut.bind(this);
     this.signIn = this.signIn.bind(this);
+    this.setLocationToSearch = this.setLocationToSearch.bind(this);
+    this.searchForJobs = this.searchForJobs.bind(this);
   }
   componentDidMount() {
 
@@ -88,6 +92,36 @@ class App extends React.Component {
     this.dbRef.off('value');
   }
 
+  searchForJobs() {
+    axios.get(
+      "https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",
+      {
+        params: {
+          publisher: "2117056629901044",
+          v: 2,
+          format: "json",
+          q: "Marketing",
+          l: this.state.location,
+          co: "ca",
+
+          start: this.state.currentPage * 10,
+          limit: 10
+        }
+      }
+    ).then((res) => {
+      console.log(res);
+      this.setState({
+        jobs: res.data.results
+      })
+    })
+  }
+
+  setLocationToSearch(e) {
+    console.log(e.target.value);
+    this.setState({
+      location: e.target.value
+    })
+  }
 
   render() {
     return (
@@ -97,29 +131,17 @@ class App extends React.Component {
 
         {this.state.loggedIn === true ? <button onClick={this.signOut}
         >Log Out</button> : null}
+
+
+        <input onKeyDown={(e) => { if (e.keyCode === 13) this.searchForJobs() }} onChange={this.setLocationToSearch} id="location-input" type="text" name="" id="" placeholder="Enter City" />
+        <button onClick={this.searchForJobs}>Find Jobs Now</button>
+        
+        {this.state.jobs.map((job) => {
+          return <JobSearchResults jobKey={job.jobkey} jobTitle={job.jobtitle} company={job.company} />
+        })}
       </div>
     )
   }
 }
-  
-
-  
-  // render() {
-  //   return (
-  //     <Router>
-  //     <div>
-  //         <Link to={`/jobsaved/`}>List of Saved Jobs</Link>
-  //         <Route
-  //           path="jobsaved/"
-  //           component={JobSaved}
-            
-  //         />
-          
-
-  //     </div>
-  //     </Router>
-  //   )
-  // }
-
 
 ReactDOM.render(<App />, document.getElementById('app'));
