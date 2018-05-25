@@ -36,15 +36,22 @@ class App extends React.Component {
     this.signIn = this.signIn.bind(this);
     this.setLocationToSearch = this.setLocationToSearch.bind(this);
     this.searchForJobs = this.searchForJobs.bind(this);
+    this.saveJob = this.saveJob.bind(this);
    
   }
   componentDidMount() {
 
-    this.dbRef = firebase.database().ref(`users/${this.state.user}`);
 
     firebase.auth().onAuthStateChanged((user) => {
-      console.log(this.state);
       if (user !== null) {
+        this.setState({
+          loggedIn: true,
+          user: user.uid,
+          
+          //userName: user.displayName
+        });
+        this.dbRef = firebase.database().ref(`users/${this.state.user}`);
+        console.log(this.dbRef);
         this.dbRef.on('value', (snapshot) => {
           //console.log(snapshot.val());
           // if (snapshot.val().jobsSaved) {
@@ -53,11 +60,6 @@ class App extends React.Component {
           //   })
           // }
           
-        });
-        this.setState({
-          loggedIn: true,
-          //user: user.uid,
-          //userName: user.displayName
         });
       } else {
         this.setState({
@@ -68,6 +70,7 @@ class App extends React.Component {
 
     })
   }
+
 
   /**
     * Signs the user in.
@@ -124,7 +127,7 @@ class App extends React.Component {
 
       if (res.data.results.length === 0) {
         swal({
-          title: "Please select an answer!",
+          title: "Please select a valid city!",
           icon: "warning",
           button: "OK"
         });
@@ -166,6 +169,15 @@ class App extends React.Component {
         {this.state.jobs.map((job) => {
           return <JobSearchResults jobKey={job.key} jobTitle={job.jobtitle} company={job.company} snippet={job.snippet} time={job.formattedRelativeTime} url={job.url} onSave={this.saveJob} loggedIn={this.state.loggedIn} />
         })}
+
+        {/* {Object.keys(this.state.jobsSaved).length !== 0 ?
+          <div className="change-page-controls">
+            <button className="test" onClick={this.changePage} id="page-last">Previous Page</button>
+            <button onClick={this.changePage} id="page-next">Next Page</button>
+          </div>
+          :
+          null
+        } */}
       </div>
     )
   }
