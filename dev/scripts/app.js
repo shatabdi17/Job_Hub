@@ -25,7 +25,7 @@ class App extends React.Component {
     super(props);
     this.state = {
       user: null,
-      //userName: '',
+      userName: '',
       loggedIn: false,
       jobsSaved: {},
       location: 'Toronto',
@@ -47,8 +47,7 @@ class App extends React.Component {
         this.setState({
           loggedIn: true,
           user: user.uid,
-          
-          //userName: user.displayName
+          userName: user.displayName
         });
         this.dbRef = firebase.database().ref(`users/${this.state.user}`);
         console.log(this.dbRef);
@@ -146,8 +145,7 @@ class App extends React.Component {
     })
   }
 
-  saveJob(key, e) {
-    e.preventDefault();
+  saveJob(key) {
     console.log(key);
   }
   
@@ -160,14 +158,14 @@ class App extends React.Component {
           {this.signIn}>Log in with Google</button>}
 
         {this.state.loggedIn === true ? <button className="signOut btn" onClick={this.signOut}
-        >Log Out</button> : null}
+        >Log Out{this.state.userName}</button> : null}
 
 
         <input onKeyDown={(e) => { if (e.keyCode === 13) this.searchForJobs() }} onChange={this.setLocationToSearch} id="location-input" type="text" name="" id="" placeholder="Enter City" />
         <button className="Search btn" onClick={this.searchForJobs}>Find Jobs Now</button>
         
         {this.state.jobs.map((job) => {
-          return <JobSearchResults jobKey={job.key} jobTitle={job.jobtitle} company={job.company} snippet={job.snippet} time={job.formattedRelativeTime} url={job.url} onSave={this.saveJob} loggedIn={this.state.loggedIn} />
+          return <JobSearchResults key={job.jobkey} jobKey={job.jobkey} jobTitle={job.jobtitle} company={job.company} snippet={job.snippet} time={job.formattedRelativeTime} url={job.url} onSave={this.saveJob} loggedIn={this.state.loggedIn} />
         })}
 
         {/* {Object.keys(this.state.jobsSaved).length !== 0 ?
