@@ -4,7 +4,8 @@ import firebase from 'firebase';
 import axios from 'axios';
 import {BrowserRouter as Router,Route,Link,NavLink} from "react-router-dom";
 import JobSearchResults from './JobSearchResults';
-import swal from './sweetalert'
+import swal from './sweetalert';
+import Notes from './Notes';
 // import JobSaved from './JobSaved';
 
 // Initialize Firebase
@@ -307,12 +308,12 @@ class App extends React.Component {
             // saved={Boolean(this.props.jobsSaved[job.jobkey])}
           })}
           {this.state.currentPage > 0 && this.state.jobs.length != 0 ? (
-            <a href="#" onClick={this.prevPage}>
+            <a href="#" className="pageButton" onClick={this.prevPage}>
               Prev
             </a>
           ) : null}{" "}
           {this.state.jobs.length != 0 ? (
-            <a href="#" onClick={this.nextPage}>
+            <a className="pageButton" href="#" onClick={this.nextPage}>
               Next
             </a>
           ) : null}
