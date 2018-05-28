@@ -33,11 +33,10 @@ body {
 }
 
 .search-result {
-    border: 1px solid $darkGrey;
-    box-shadow: 0px 1px 3px $darkGrey;
+    box-shadow: 0px 2px 4px $darkGrey;
     border-radius: 5px;
     background-color: white;
-    width: 80%;
+    width: 70%;
     padding: 30px;
     margin: 25px auto;
 }
