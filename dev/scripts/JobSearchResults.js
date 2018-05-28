@@ -14,10 +14,10 @@ const JobSearchResults = (props) => {
                 <p className="job-time">{formattedRelativeTime}</p>
                 <a className="more-info" href={url} target="_blank">More Info</a>
                 
-                <a className="apply-now"> href={url} target="_blank">Apply Now </a>
+                <a className="apply-now" href={`${url}#apply-state-picker-container`} target="_blank">Apply Now </a>
 
 
-                {/* <button onClick={() => props.onSave(props.jobKey)} className="save-button">
+                {/* <button onClick={() => props.onSave(props.jobKey)} classNme="save-button">
                     {!props.saved ? "Save" : "Remove From Saved Jobs?"}
                 </button> */}
 
