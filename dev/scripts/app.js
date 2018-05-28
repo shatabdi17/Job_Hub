@@ -220,7 +220,7 @@ class App extends React.Component {
   nextPage(e) {
     e.preventDefault();
     this.setState({
-      currentPage: this.state.currentPage + 10
+      currentPage: currentPage + 10
     });
 
     axios
