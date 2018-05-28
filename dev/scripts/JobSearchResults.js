@@ -6,7 +6,6 @@ const JobSearchResults = (props) => {
     return (
         <div>
             <div id={jobkey} className="search-result">
-                <div><i className="fas fa-check-circle"></i></div>
                 <h3 className="job-title">{jobtitle}</h3>
                 <h4 className="job-company">{company}</h4>
                 {/* <p className="job-snippet" dangerouslySetInnerHTML={{ __html:props.snippet }}></p> */}
@@ -16,13 +15,13 @@ const JobSearchResults = (props) => {
                 
                 <a className="apply-now" href={`${url}#apply-state-picker-container`} target="_blank">Apply Now </a>
 
+                {/* {this.props.jobsSaved ? (<img src="/dev/styles/assets/star-green.svg" alt="Save Job" className="icon" /> ) : (<img src="/dev/styles/assets/delete-red.svg" alt="Remove from Saved Jobs" className="icon" />)} */}
+                
 
-                {/* <button onClick={() => props.onSave(props.jobKey)} classNme="save-button">
-                    {!props.saved ? "Save" : "Remove From Saved Jobs?"}
-                </button> */}
+                <button onClick={() => props.onSave(props.job)} className="icon-button"><img src="/dev/styles/assets/star-green.svg" alt="Save Job" className="icon" /></button>
 
-                <button onClick={() => props.onSave(props.job)} className="save-button">Save Me</button>
-                <button onClick={() => props.onApply(props.job)} className="save-button">Applied</button>
+                <button onClick={() => props.onApply(props.job)} className="icon-button"><img src="/dev/styles/assets/check-limegreen.svg" alt="applied" className="icon" /></button>
+
                 {/* {indeedApply && <button onClick={() => props.onApply(props.job)} className="save-button">Applied</button>} */}
             </div>
         </div>

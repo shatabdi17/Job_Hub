@@ -29,8 +29,19 @@ body {
         width: 250px;
         padding: 5px 10px;
         text-align: center;
+        text-transform: uppercase;
+    }
+    .location-input {
+        margin-top: 20px;
+        margin-bottom: 40px;
+    }
+    .search {
+        background: black;
+        border: none;
+        color: white;
     }
 }
+
 
 .search-result {
     box-shadow: 0px 2px 4px $darkGrey;
@@ -42,20 +53,40 @@ body {
 }
 
 .job-title {
-    font-size: 1.7rem;
+    font-size: 2rem;
 }
 
-// .job-company {
-
-// }
 
 .job-time {
     text-transform: uppercase;
-    font-size: 1rem;
+    font-size: 1.3rem;
     font-weight: bold;
 }
 
-// .more-info {
+.more-info,
+.apply-now {
+    background: $black;
+    color: white;
+    text-transform: uppercase;
+    margin-right: 15px;
+    padding: 5px 10px;
+}
 
-// }
 
+.icon-button {
+    border: none;
+    background: transparent;
+}
+
+.icon {
+    height: 20px;
+    width: auto;
+}
+
+.change-page {
+    margin:  0 auto;
+    background: $black;
+    color: white;
+    margin-right: 10px;
+    padding: 5px 10px;
+}
