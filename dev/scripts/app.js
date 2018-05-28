@@ -226,17 +226,20 @@ class App extends React.Component {
           >Log Out {this.state.userName}</button> : null}
 
 
-        <input onKeyDown={(e) => { if (e.keyCode === 13) this.searchForJobs() }} onChange={this.setLocationToSearch} id="location-input" type="text" name="" id="" placeholder="Enter City" />
-        <button className="Search btn" onClick={this.searchForJobs}>Find Jobs Now</button>
-      
+          <input onKeyDown={(e) => { if (e.keyCode === 13) this.searchForJobs() }} onChange={this.setLocationToSearch} id="location-input" type="text" name="" id="" placeholder="Enter City" />
+          <button className="search btn" onClick={this.searchForJobs}>Find Jobs Now</button>
+        </div>
 
-        {this.state.jobs.map((job) => {
-          return <JobSearchResults key={job.jobkey} job={job} loggedIn={this.state.loggedIn} onSave={this.saveJob}
-          // saved={Boolean(this.props.jobsSaved[job.jobkey])} 
-            onApply={this.applyForJob}
-          // saved={Boolean(this.props.jobsSaved[job.jobkey])} 
-          />
-        })}
+        <div className="job-search-results">
+        
+          {this.state.jobs.map((job) => {
+            return <JobSearchResults key={job.jobkey} job={job} loggedIn={this.state.loggedIn} onSave={this.saveJob}
+            // saved={Boolean(this.props.jobsSaved[job.jobkey])} 
+              onApply={this.applyForJob}
+            // saved={Boolean(this.props.jobsSaved[job.jobkey])} 
+            />
+          })}
+        </div>
  
         {/* {Object.keys(this.state.jobsSaved).length !== 0 ?
           <div className="change-page-controls">
@@ -246,7 +249,7 @@ class App extends React.Component {
           :
           null
         } */}
-      </div>
+     
       </div>
     )
   }
