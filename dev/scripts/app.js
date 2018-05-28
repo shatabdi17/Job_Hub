@@ -218,11 +218,12 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {this.state.loggedIn === false && <button className="signIn btn" onClick=
-          {this.signIn}>Log in with Google</button>}
+        <div className="landing-page">
+          {this.state.loggedIn === false && <button className="signIn btn" onClick=
+            {this.signIn}>Log in with Google</button>}
 
-        {this.state.loggedIn === true ? <button className="signOut btn" onClick={this.signOut}
-        >Log Out{this.state.userName}</button> : null}
+          {this.state.loggedIn === true ? <button className="signOut btn" onClick={this.signOut}
+          >Log Out{this.state.userName}</button> : null}
 
 
         <input onKeyDown={(e) => { if (e.keyCode === 13) this.searchForJobs() }} onChange={this.setLocationToSearch} id="location-input" type="text" name="" id="" placeholder="Enter City" />
@@ -245,6 +246,7 @@ class App extends React.Component {
           :
           null
         } */}
+      </div>
       </div>
     )
   }
