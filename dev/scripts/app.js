@@ -30,7 +30,7 @@ class App extends React.Component {
       loggedIn: false,
       jobsAppliedFor: {},
       jobsSaved: {},
-      location: "Toronto",
+      location: 'Toronto',
       jobs: []
     };
 
@@ -220,9 +220,7 @@ class App extends React.Component {
     e.preventDefault();
     this.setState({
       currentPage: this.state.currentPage + 10
-    });
-
-    axios
+    },() => {axios
       .get("https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch", {
         params: {
           publisher: "2117056629901044",
@@ -249,7 +247,7 @@ class App extends React.Component {
         } else {
           this.setState({ jobs: res.data.results });
         }
-      });
+      })});
   }
 
           <input onKeyDown={(e) => { if (e.keyCode === 13) this.searchForJobs() }} onChange={this.setLocationToSearch} id="location-input" type="text" name="" className="location-input" placeholder="Enter City" />
@@ -259,36 +257,39 @@ class App extends React.Component {
     e.preventDefault();
     this.setState({
       currentPage: this.state.currentPage - 10
-    });
+    },() => {axios
+                .get(
+                  "https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",
+                  {
+                    params: {
+                      publisher: "2117056629901044",
+                      v: 2,
+                      format: "json",
+                      q: "Marketing",
+                      l: this.state.location,
+                      co: "ca",
 
-    axios
-      .get("https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch", {
-        params: {
-          publisher: "2117056629901044",
-          v: 2,
-          format: "json",
-          q: "Marketing",
-          l: this.state.location,
-          co: "ca",
+                      start: this.state.currentPage,
+                      limit: 10
+                    }
+                  }
+                )
+                .then(res => {
+                  console.log(res);
+                  this.setState({ jobs: res.data.results });
 
-          start: this.state.currentPage,
-          limit: 10
-        }
-      })
-      .then(res => {
-        console.log(res);
-        this.setState({ jobs: res.data.results });
+                  if (res.data.results.length === 0) {
+                    swal({
+                      title: "Please select a valid city!",
+                      icon: "warning",
+                      button: "OK"
+                    });
+                  } else {
+                    this.setState({ jobs: res.data.results });
+                  }
+                })});
 
-        if (res.data.results.length === 0) {
-          swal({
-            title: "Please select a valid city!",
-            icon: "warning",
-            button: "OK"
-          });
-        } else {
-          this.setState({ jobs: res.data.results });
-        }
-      });
+    
   }
 
   render() {
