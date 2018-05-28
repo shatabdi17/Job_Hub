@@ -154,19 +154,23 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        {this.state.loggedIn === false && <button className="signIn btn" onClick=
-          {this.signIn}>Log in with Google</button>}
+        <div className="landing-page">
+          {this.state.loggedIn === false && <button className="signIn btn" onClick=
+            {this.signIn}>Log in with Google</button>}
 
-        {this.state.loggedIn === true ? <button className="signOut btn" onClick={this.signOut}
-        >Log Out{this.state.userName}</button> : null}
+          {this.state.loggedIn === true ? <button className="signOut btn" onClick={this.signOut}
+          >Log Out{this.state.userName}</button> : null}
 
 
-        <input onKeyDown={(e) => { if (e.keyCode === 13) this.searchForJobs() }} onChange={this.setLocationToSearch} id="location-input" type="text" name="" id="" placeholder="Enter City" />
-        <button className="Search btn" onClick={this.searchForJobs}>Find Jobs Now</button>
-        
-        {this.state.jobs.map((job) => {
+          <input onKeyDown={(e) => { if (e.keyCode === 13) this.searchForJobs() }} onChange={this.setLocationToSearch} id="location-input" className="location-input" type="text" name="" id="" placeholder="Enter City" />
+          <button className="search btn" onClick={this.searchForJobs}>Find Jobs Now</button>
+        </div>
+
+        <div className="job-search-results">
+          {this.state.jobs.map((job) => {
           return <JobSearchResults key={job.jobkey} jobKey={job.jobkey} jobTitle={job.jobtitle} company={job.company} snippet={job.snippet} time={job.formattedRelativeTime} url={job.url} onSave={this.saveJob} loggedIn={this.state.loggedIn} />
-        })}
+          })}
+        </div>
 
         {/* {Object.keys(this.state.jobsSaved).length !== 0 ?
           <div className="change-page-controls">
