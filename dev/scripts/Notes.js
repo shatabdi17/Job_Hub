@@ -1,4 +1,4 @@
 import React from 'react';
 import firebase from 'firebase';
 
-export default Notes
+export default Notes;
