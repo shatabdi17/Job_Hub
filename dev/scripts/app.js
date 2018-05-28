@@ -30,8 +30,7 @@ class App extends React.Component {
       loggedIn: false,
       jobsAppliedFor: {},
       jobsSaved: {},
-      location: 'Toronto',
-      currentPage: 0,
+      location: "Toronto",
       jobs: []
     };
 
