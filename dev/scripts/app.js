@@ -30,6 +30,7 @@ class App extends React.Component {
       jobsAppliedFor:{},
       jobsSaved: {},
       location: 'Toronto',
+      currentPage: 0,
       jobs: []
     };
 
@@ -114,7 +115,7 @@ class App extends React.Component {
           l: this.state.location,
           co: "ca",
 
-          start: this.state.currentPage * 10,
+          start: this.state.currentPage + 10,
           limit: 10
         }
       }
