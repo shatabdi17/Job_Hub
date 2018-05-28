@@ -115,7 +115,6 @@ class App extends React.Component {
           q: "Marketing",
           l: this.state.location,
           co: "ca",
-
           start: this.state.currentPage,
           limit: 10
         }
