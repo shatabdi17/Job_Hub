@@ -295,6 +295,7 @@ class App extends React.Component {
           <button className="Search btn" onClick={this.searchForJobs}>
             Find Jobs Now
           </button>
+          <Notes user={this.state.user}/>
           {this.state.jobs.map(job => {
             return (
               <JobSearchResults
