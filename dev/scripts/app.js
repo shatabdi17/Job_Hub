@@ -226,7 +226,7 @@ class App extends React.Component {
           >Log Out{this.state.userName}</button> : null}
 
 
-          <input onKeyDown={(e) => { if (e.keyCode === 13) this.searchForJobs() }} onChange={this.setLocationToSearch} id="location-input" type="text" name="" id="" placeholder="Enter City" />
+          <input onKeyDown={(e) => { if (e.keyCode === 13) this.searchForJobs() }} onChange={this.setLocationToSearch} id="location-input" type="text" name="" className="location-input" placeholder="Enter City" />
           <button className="search btn" onClick={this.searchForJobs}>Find Jobs Now</button>
         </div>
 
