@@ -176,10 +176,10 @@ class App extends React.Component {
 
     // update database
     if (this.state.loggedIn && this.state.user !== null) {
-     this.dbRef = firebase.database().ref(`users/${this.state.user}/jobsAppliedFor`);
-     this.dbRef.set(appliedFor);
-     this.dbRefB = firebase.database().ref(`users/${this.state.user}/jobsSaved`);
-     this.dbRefB.set(saved);
+      this.dbRef = firebase.database().ref(`users/${this.state.user}/jobsAppliedFor`);
+      this.dbRef.set(appliedFor);
+      this.dbRefB = firebase.database().ref(`users/${this.state.user}/jobsSaved`);
+      this.dbRefB.set(saved);
     }
   }
 
@@ -232,7 +232,7 @@ class App extends React.Component {
         {this.state.jobs.map((job) => {
           return <JobSearchResults key={job.jobkey} job={job} loggedIn={this.state.loggedIn} onSave={this.saveJob}
           // saved={Boolean(this.props.jobsSaved[job.jobkey])} 
-           onApply={this.applyForJob}
+            onApply={this.applyForJob}
           // saved={Boolean(this.props.jobsSaved[job.jobkey])} 
           />
         })}
