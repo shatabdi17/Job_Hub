@@ -51,7 +51,8 @@ class App extends React.Component {
         this.setState({
           loggedIn: true,
           user: user.uid,
-          userName: user.displayName
+          userName: user.displayName,
+          userPhoto:user.photoURL
         });
         this.dbRef = firebase.database().ref(`users/${this.state.user}`);
         console.log(this.dbRef);

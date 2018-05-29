@@ -13,8 +13,6 @@ const JobSearchResults = (props) => {
                 <a className="more-info" href={url} target="_blank">More Info</a>
                 
                 <a className="apply-now" href={`${url}#apply-state-picker-container`} target="_blank">Apply Now </a>
-
-                {/* {this.props.jobsSaved ? (<img src="/dev/styles/assets/star-green.svg" alt="Save Job" className="icon" /> ) : (<img src="/dev/styles/assets/delete-red.svg" alt="Remove from Saved Jobs" className="icon" />)} */}
                 
                 <button onClick={() => props.onSave(props.job)} className="icon-button"><img src="/dev/styles/assets/star-green.svg" alt="Save Job" className="icon" /></button>
 
