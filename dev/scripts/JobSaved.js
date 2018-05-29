@@ -27,20 +27,13 @@ class JobSaved extends React.Component {
                     userPhoto: user.photoURL
                 });
                 this.dbRef = firebase.database().ref(`users/${this.state.user}`);
-                console.log(this.dbRef);
                 this.dbRef.on("value", snapshot => {
-                    console.log(snapshot.val());
                     if (snapshot.val().jobsSaved) {
-                        //Take the snapshot.val().jobSaved
-                        //convert that to an array
-                        //for...in one way
-                        //Object.keys another way
                         this.setState({
                             jobsSaved: Object.values(snapshot.val().jobsSaved)
                         });
 
                         if (snapshot.val().jobsAppliedFor) {
-                            //Same for down here
                             this.setState({
                                 jobsAppliedFor: Object.values(snapshot.val().jobsAppliedFor)
                             });
@@ -64,7 +57,7 @@ class JobSaved extends React.Component {
         if (jobsSaved[jobkey]) {
             delete jobsSaved[jobkey];
         }
-        //     // if job has not been saved, add job to saved jobs
+        // if job has not been saved, add job to saved jobs
         else {
             jobsSaved[jobkey] = jobObject;
         }
@@ -78,7 +71,6 @@ class JobSaved extends React.Component {
                 .database()
                 .ref(`users/${this.state.user}/jobsSaved`);
             this.dbRef.set(jobsSaved);
-            //console.log("Job saved");
         }
     }
 
@@ -86,7 +78,6 @@ class JobSaved extends React.Component {
         const jobkey = jobObject.jobkey;
         let appliedFor = this.state.jobsAppliedFor;
         appliedFor[jobkey] = jobObject;
-        //appliedFor[jobkey].jobApplication = this.state.userApplication;
 
         let currentDate = new Date();
         currentDate = currentDate.toString();
@@ -94,10 +85,8 @@ class JobSaved extends React.Component {
         appliedFor[jobkey].dateApplied = currentDate;
 
         let saved = this.state.jobsSaved;
-        // if job applied for has already been saved, update fields for the saved job
         if (saved[jobkey]) {
             saved[jobkey] = jobObject;
-            //saved[jobkey].jobApplication = this.state.userApplication;
             saved[jobkey].dateApplied = currentDate;
         }
 
@@ -122,7 +111,7 @@ class JobSaved extends React.Component {
     render() {
         return (
             <div className="saved-results">
-                <Link to="/notes"><img src="/dev/styles/assets/edit-black.svg" alt="add notes"/></Link>
+                <Link to="/notes"><img src="/dev/styles/assets/edit-black.svg" alt="add notes" className="notes-button"/></Link>
                 {this.state.jobsSaved.map((job) => {
                     return (
                         <JobSearchResults

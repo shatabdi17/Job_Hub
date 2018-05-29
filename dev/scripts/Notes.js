@@ -19,7 +19,10 @@ class Notes extends React.Component {
         // Default stuff of inside of the textarea is the state of the note.
         const dbRefMain = firebase.database().ref(`users/${this.props.user}`);
         dbRefMain.on("value", snapshot => {
-            console.log(snapshot.val());
+            const theActualNote = Object.values(snapshot.val())[0];
+            this.setState({
+                noteText: theActualNote
+            });
         });
     }
 
@@ -30,7 +33,6 @@ class Notes extends React.Component {
     }
 
     handleSubmit(e) {
-        console.log('clicked');
         const dbRefNotes = firebase.database().ref(`users/${this.props.user}/note`);
         dbRefNotes.set(this.state.noteText);
     }

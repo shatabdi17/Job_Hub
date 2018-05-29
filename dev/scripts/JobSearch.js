@@ -67,33 +67,33 @@ class JobSearch extends React.Component {
         /**
      * Signs the user in.
      */
-    // signIn() {
-    //     const provider = new firebase.auth.GoogleAuthProvider();
+    signIn() {
+        const provider = new firebase.auth.GoogleAuthProvider();
 
-    //     firebase
-    //     .auth()
-    //     .signInWithPopup(provider)
-    //     .then(user => {
-    //         this.setState({
-    //         loggedIn: true
-    //         });
-    //     })
-    //     .catch(err => {
-    //         console.log(err);
-    //     });
-    // }
+        firebase
+        .auth()
+        .signInWithPopup(provider)
+        .then(user => {
+            this.setState({
+            loggedIn: true
+            });
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
 
-    // /**
-    //  * Signs the user out.
-    //  */
-    // signOut() {
-    //     firebase.auth().signOut();
-    //     //console.log('Signed out!')
-    //     this.dbRef.off("value");
-    //     this.setState({
-    //     loggedIn: false
-    //     });
-    // }
+    /**
+     * Signs the user out.
+     */
+    signOut() {
+        firebase.auth().signOut();
+        //console.log('Signed out!')
+        this.dbRef.off("value");
+        this.setState({
+        loggedIn: false
+        });
+    }
 
 
     searchForJobs() {
