@@ -314,6 +314,7 @@ class App extends React.Component {
                 onApply={this.applyForJob}
                 // saved={Object.keys(this.state.jobsSaved).includes(job.jobkey)}
                 saved={job.jobkey in this.state.jobsSaved}
+                applied={job.jobkey in this.state.jobsAppliedFor}
               />
             );
             
