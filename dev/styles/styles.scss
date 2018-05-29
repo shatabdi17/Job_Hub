@@ -22,6 +22,16 @@ body {
     margin: 0 auto;
 }
 
+.logo-header {
+    width: 20%;
+    margin: 20px auto;
+
+
+    img {
+        width: 100%;
+    }
+}
+
 .landing-page {
     text-align: center;
     .btn,
@@ -31,16 +41,25 @@ body {
         text-align: center;
         text-transform: uppercase;
     }
+
     .location-input {
         margin-top: 20px;
         margin-bottom: 40px;
     }
+
+
     .search {
         background: black;
         border: none;
         color: $white;
+        padding: 5px 0;
     }
 }
+
+    button.signOut.btn,
+    button.signIn.btn {
+        padding: 5px 0;
+    }     
 
 
 .search-result {
@@ -57,11 +76,15 @@ body {
     font-size: 2rem;
 }
 
+.job-snippet {
+    padding-right: 15px;
+}
 
 .job-time {
     text-transform: uppercase;
     font-size: 1.3rem;
     font-weight: bold;
+    padding-bottom: 15px;
 }
 
 .more-info,
@@ -70,7 +93,7 @@ body {
     color: $white;
     text-transform: uppercase;
     margin-right: 15px;
-    padding: 5px 10px;
+    padding: 10px 20px;
 }
 
 .icon-button {
@@ -95,25 +118,64 @@ body {
     top: 80px;
 }
 
+.change-pages {
+    margin: 0 auto;
+    text-align: center;
+    padding-bottom: 40px;
+}
+
 .change-page {
     margin:  0 auto;
     background: $black;
     color: $white;
     margin-right: 10px;
-    padding: 5px 10px;
+    padding: 10px 20px;
 }
 
+.saved-results {
+    position: relative;
+    img {
+        position: absolute;
+        top: 0;
+        right: 20px;
+        height: 50px;
+        cursor: pointer;
+    }
+}
+
+.notes {
+    margin: 0 auto;
+    text-align: center;
+    textarea {
+        height: 30vh;
+        width: 40%;
+        padding: 15px;
+        margin-bottom: 20px;
+    }   
+    button {
+        display: block;
+        text-align: center;
+        margin: 10px auto;
+        background: $black;
+        color: $white;
+        text-transform: uppercase;
+        border: none;
+        padding: 10px 20px;
+    }
+}
 footer {
     width: 100%;
     position: fixed;
     bottom: 0;
     text-align: center;
     background: $darkGrey;
+    padding: 15px 0;
 }
 
 footer a {
     margin: 1rem;
     text-transform: uppercase;
+    letter-spacing: 1.5px;
     color: $white;
     font-weight: bold;
 }

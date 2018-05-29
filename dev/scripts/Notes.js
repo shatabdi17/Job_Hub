@@ -36,9 +36,9 @@ class Notes extends React.Component {
     }
     render() {
         return(
-            <div>
-                <textarea onChange={this.handleChange} placeholder={this.state.noteText === '' ? 'Please type your notes here.' : null}>{this.state.noteText !== '' ? this.state.noteText : null}</textarea>
-                <button onClick={this.handleSubmit}>Click me</button>
+            <div className="notes">
+                <textarea onChange={this.handleChange} placeholder={this.state.noteText === '' ? 'Type your notes here.' : null}>{this.state.noteText !== '' ? this.state.noteText : null}</textarea>
+                <button onClick={this.handleSubmit}>Save Notes</button>
 
             </div>
         )

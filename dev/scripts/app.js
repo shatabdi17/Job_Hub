@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import firebase from 'firebase';
 import axios from 'axios';
+import LogoHeader from './LogoHeader';
 import JobSearch from './JobSearch';
 import swal from './sweetalert';
 import JobSearchResults from './JobSearchResults';
@@ -280,7 +281,7 @@ class App extends React.Component {
     return (
       <Router>
         <div>
-          <Header />
+          <LogoHeader />
           {/* <div className="landing-page">
             {this.state.loggedIn === false && (
               <button className="signIn btn" onClick={this.signIn}>

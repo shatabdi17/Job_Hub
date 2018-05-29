@@ -2,6 +2,7 @@ import React from 'react';
 import firebase from 'firebase';
 import axios from 'axios';
 import JobSearchResults from './JobSearchResults';
+import { BrowserRouter as Router, Route, Link, NavLink } from "react-router-dom";
 
 
 class JobSaved extends React.Component {
@@ -120,7 +121,8 @@ class JobSaved extends React.Component {
     }
     render() {
         return (
-            <div>
+            <div className="saved-results">
+                <Link to="/notes"><img src="/dev/styles/assets/edit-black.svg" alt="add notes"/></Link>
                 {this.state.jobsSaved.map((job) => {
                     return (
                         <JobSearchResults

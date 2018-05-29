@@ -300,7 +300,7 @@ class JobSearch extends React.Component {
 
                     {/* <Route exact path="/notes" component={Notes} /> */}
                 </div>
-                
+
                 <div className="job-results">
                     {this.state.jobs.map(job => {
                         return (
@@ -317,20 +317,21 @@ class JobSearch extends React.Component {
                         );
 
                     })}
-                    {this.state.currentPage > 0 && this.state.jobs.length != 0 ? (
+                    <div className="change-pages">
+                        {this.state.currentPage > 0 && this.state.jobs.length != 0 ? (
 
-                        <a href="#" className="change-page" onClick={this.prevPage}>
-                            Prev
-                        </a>
-                    ) : null}{" "}
-                    {this.state.jobs.length != 0 ? (
+                            <a href="#" className="change-page" onClick={this.prevPage}>
+                                Prev
+                            </a>
+                        ) : null}{" "}
+                        {this.state.jobs.length != 0 ? (
 
-                        <a href="#" className="change-page" onClick={this.nextPage}>
+                            <a href="#" className="change-page" onClick={this.nextPage}>
 
-                            Next
-                        </a>
-                    ) : null}
-
+                                Next
+                            </a>
+                        ) : null}
+                    </div>
                 </div>
             </div>
 
