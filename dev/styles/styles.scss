@@ -38,7 +38,7 @@ body {
     .search {
         background: black;
         border: none;
-        color: white;
+        color: $white;
     }
 }
 
@@ -46,7 +46,7 @@ body {
 .search-result {
     box-shadow: 0px 2px 4px $darkGrey;
     border-radius: 5px;
-    background-color: white;
+    background-color: $white;
     width: 70%;
     padding: 30px;
     margin: 25px auto;
@@ -67,7 +67,7 @@ body {
 .more-info,
 .apply-now {
     background: $black;
-    color: white;
+    color: $white;
     text-transform: uppercase;
     margin-right: 15px;
     padding: 5px 10px;
@@ -98,7 +98,26 @@ body {
 .change-page {
     margin:  0 auto;
     background: $black;
-    color: white;
+    color: $white;
     margin-right: 10px;
     padding: 5px 10px;
+}
+
+footer {
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    text-align: center;
+    background: $darkGrey;
+}
+
+footer a {
+    margin: 1rem;
+    text-transform: uppercase;
+    color: $white;
+    font-weight: bold;
+}
+
+footer a:hover {
+    color: $black;
 }

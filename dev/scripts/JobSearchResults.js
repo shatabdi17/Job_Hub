@@ -1,11 +1,11 @@
 import React from 'react';
-import Link from 'react-router-dom';
+
 
 const JobSearchResults = (props) => {
     const {jobkey, jobtitle, company, snippet, formattedRelativeTime, url, indeedApply} = props.job;
     return (
         <div>
-            <div id={jobkey} className="search-result">
+            <div className="search-result">
                 <h3 className="job-title">{jobtitle}</h3>
                 <h4 className="job-company">{company}</h4>
                 <p className="job-snippet">{snippet.replace(/<[^>]*>/g, '')}</p>
@@ -15,14 +15,14 @@ const JobSearchResults = (props) => {
                 <a className="apply-now" href={`${url}#apply-state-picker-container`} target="_blank">Apply Now </a>
 
 
-                <button onClick={() =>
+               {props.saved !== null && <button onClick={() =>
                     props.onSave(props.job)} className="icon-button saved-button"> {props.saved ? <img src="/dev/styles/assets/delete-red.svg" alt="Remove from Saved Jobs" className="icon" /> : <img src="/dev/styles/assets/star-green.svg" alt="Add to Saved Jobs" className="icon" />}
-                </button>
+               </button> }
              
-                <button onClick={() => 
+                {props.applied !== null && <button onClick={() => 
                     props.onApply(props.job)} className="icon-button applied-button">
                     {props.applied ? <img src="/dev/styles/assets/check-limegreen.svg" alt="Applied" className="icon" /> : <img src="/dev/styles/assets/delete-red.svg" alt="Remove from Saved Jobs" className="icon" />}
-                </button>
+                </button>}
 
                 {/* {indeedApply && <button onClick={() => props.onApply(props.job)} className="save-button">Applied</button>} */}
             </div>
@@ -31,4 +31,3 @@ const JobSearchResults = (props) => {
 }
 
 export default JobSearchResults;
-

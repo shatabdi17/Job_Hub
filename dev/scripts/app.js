@@ -2,10 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import firebase from 'firebase';
 import axios from 'axios';
-import {BrowserRouter as Router,Route,Link,NavLink} from "react-router-dom";
-import JobSearchResults from './JobSearchResults';
+import JobSearch from './JobSearch';
 import swal from './sweetalert';
+import JobSearchResults from './JobSearchResults';
+import JobSaved from './JobSaved';
 import Notes from './Notes';
+import Footer from './Footer';
+import {BrowserRouter as Router,Route,Link,NavLink} from "react-router-dom";
 // import JobSaved from './JobSaved';
 
 // Initialize Firebase
@@ -275,68 +278,77 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="landing-page">
-          {this.state.loggedIn === false && (
-            <button className="signIn btn" onClick={this.signIn}>
-              Log in with Google
-            </button>
-          )}
-          {this.state.loggedIn === true ? (
-            <button className="signOut btn" onClick={this.signOut}>
-              Log Out {this.state.userName}
-            </button>
-          ) : null}
-          <input
-            onKeyDown={e => {
-              if (e.keyCode === 13) this.searchForJobs();
-            }}
-            onChange={this.setLocationToSearch}
-            id="location-input"
-            className="location-input"
-            type="text"
-            name=""
-            id=""
-            placeholder="Enter City"
-          />
-          <button className="search btn" onClick={this.searchForJobs}>
-            Find Jobs Now
-          </button>
-          <Notes user={this.state.user}/>
-        </div>
-        <div className="job-results">
-          {this.state.jobs.map(job => {
-            return (
-              <JobSearchResults
-                key={job.jobkey}
-                job={job}
-                loggedIn={this.state.loggedIn}
-                onSave={this.saveJob} 
-                onApply={this.applyForJob}
-                // saved={Object.keys(this.state.jobsSaved).includes(job.jobkey)}
-                saved={job.jobkey in this.state.jobsSaved}
-                applied={job.jobkey in this.state.jobsAppliedFor}
-              />
-            );
+      <Router>
+        <div>
+          <Header />
+          {/* <div className="landing-page">
+            {this.state.loggedIn === false && (
+              <button className="signIn btn" onClick={this.signIn}>
+                Log in with Google
+              </button>
+            )}
+            {this.state.loggedIn === true ? (
+              <button className="signOut btn" onClick={this.signOut}>
+                Log Out {this.state.userName}
+              </button>
+            ) : null}
+            <input
+              onKeyDown={e => {
+                if (e.keyCode === 13) this.searchForJobs();
+              }}
+              onChange={this.setLocationToSearch}
+              id="location-input"
+              className="location-input"
+              type="text"
+              name=""
+              id=""
+              placeholder="Enter City"
+            />
+            <button className="search btn" onClick={this.searchForJobs}>
+              Find Jobs Now
+            </button> */}
+
+            <Route exact path="/" component={JobSearch} />
+            <Route exact path="/mysavedjobs" component={JobSaved} />
+            <Route exact path="/notes" component={Notes} />
             
-          })}
-          {this.state.currentPage > 0 && this.state.jobs.length != 0 ? (
 
-            <a href="#" className="change-page" onClick={this.prevPage}>
-              Prev
-            </a>
-          ) : null}{" "}
-          {this.state.jobs.length != 0 ? (
+          {/* </div>
+          <div className="job-results">
+            {this.state.jobs.map(job => {
+              return (
+                <JobSearchResults
+                  key={job.jobkey}
+                  job={job}
+                  loggedIn={this.state.loggedIn}
+                  onSave={this.saveJob} 
+                  onApply={this.applyForJob}
+                  // saved={Object.keys(this.state.jobsSaved).includes(job.jobkey)}
+                  saved={job.jobkey in this.state.jobsSaved}
+                  applied={job.jobkey in this.state.jobsAppliedFor}
+                />
+              );
+              
+            })}
+            {this.state.currentPage > 0 && this.state.jobs.length != 0 ? (
 
-            <a href="#" className="change-page" onClick={this.nextPage}>
+              <a href="#" className="change-page" onClick={this.prevPage}>
+                Prev
+              </a>
+            ) : null}{" "}
+            {this.state.jobs.length != 0 ? (
 
-              Next
-            </a>
-          ) : null}
+              <a href="#" className="change-page" onClick={this.nextPage}>
 
+                Next
+              </a>
+            ) : null}
+
+          </div> */}
+          <Footer signOut={this.signOut} signIn={this.signIn} loggedIn={this.state.loggedIn} />
         </div>
-      </div>
-    );
+      </Router>
+    )
   }
 }
 
