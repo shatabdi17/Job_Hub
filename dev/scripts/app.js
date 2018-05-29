@@ -33,6 +33,7 @@ class App extends React.Component {
       jobsSaved: {},
       location: 'Toronto',
       jobs: []
+     
     };
 
     this.signOut = this.signOut.bind(this);
@@ -50,7 +51,8 @@ class App extends React.Component {
         this.setState({
           loggedIn: true,
           user: user.uid,
-          userName: user.displayName
+          userName: user.displayName,
+          userPhoto:user.photoURL
         });
         this.dbRef = firebase.database().ref(`users/${this.state.user}`);
         console.log(this.dbRef);
@@ -181,36 +183,29 @@ class App extends React.Component {
       this.dbRefB.set(saved);
     }
   }
-
-  /**
-   * For a given jobkey and jobObject, save a job.
-   * @param {String} jobkey - key value at which to store jobObject
-   * @param {Object} jobObject - jobObject to store
-   */
-
   saveJob(jobObject) {
     const jobkey = jobObject.jobkey;
     // get currently saved jobs from state
-    let _jobsSaved = this.state.jobsSaved;
+    let jobsSaved = this.state.jobsSaved;
 
     // if job has been saved, remove saved job
-    if (_jobsSaved[jobkey]) {
-      delete _jobsSaved[jobkey];
+    if (jobsSaved[jobkey]) {
+      delete jobsSaved[jobkey];
     }
     // if job has not been saved, add job to saved jobs
     else {
-      _jobsSaved[jobkey] = jobObject;
+      jobsSaved[jobkey] = jobObject;
     }
     // set state
     this.setState({
-      jobsSaved: _jobsSaved
+      jobsSaved: jobsSaved
     });
 
     if (this.state.loggedIn && this.state.user !== null) {
       this.dbRef = firebase
         .database()
         .ref(`users/${this.state.user}/jobsSaved`);
-      this.dbRef.set(_jobsSaved);
+      this.dbRef.set(jobsSaved);
       //console.log("Job saved");
     }
   }
@@ -244,28 +239,38 @@ class App extends React.Component {
     e.preventDefault();
     this.setState({
       currentPage: this.state.currentPage - 10
-    },() => {axios
-      .get(
-        "https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",
-        {
-          params: {
-            publisher: "2117056629901044",
-            v: 2,
-            format: "json",
-            q: "Marketing",
-            l: this.state.location,
-            co: "ca",
+    },() =>  {axios
+                .get(
+                  "https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",
+                  {
+                    params: {
+                      publisher: "2117056629901044",
+                      v: 2,
+                      format: "json",
+                      q: "Marketing",
+                      l: this.state.location,
+                      co: "ca",
 
-            start: this.state.currentPage,
-            limit: 10
-          }
-        }
-      )
-      .then(res => {
-        this.setState({ jobs: res.data.results });
-      })
-    });    
-  }
+                      start: this.state.currentPage,
+                      limit: 10
+                    }
+                  }
+                )
+                .then(res => {
+                  console.log(res);
+                  this.setState({ jobs: res.data.results });
+
+                  if (res.data.results.length === 0) {
+                    swal({
+                      title: "Please select a valid city!",
+                      icon: "warning",
+                      button: "OK"
+                    });
+                  } else {
+                    this.setState({ jobs: res.data.results });
+                  }
+                })});
+ }
 
   render() {
     return (
@@ -287,45 +292,46 @@ class App extends React.Component {
             }}
             onChange={this.setLocationToSearch}
             id="location-input"
+            className="location-input"
             type="text"
             name=""
             id=""
             placeholder="Enter City"
           />
-          <button className="Search btn" onClick={this.searchForJobs}>
+          <button className="search btn" onClick={this.searchForJobs}>
             Find Jobs Now
           </button>
           <Notes user={this.state.user}/>
+        </div>
+        <div className="job-results">
           {this.state.jobs.map(job => {
             return (
               <JobSearchResults
                 key={job.jobkey}
                 job={job}
                 loggedIn={this.state.loggedIn}
-                onSave={this.saveJob} // saved={Boolean(this.props.jobsSaved[job.jobkey])}
+                onSave={this.saveJob} 
                 onApply={this.applyForJob}
+                // saved={Object.keys(this.state.jobsSaved).includes(job.jobkey)}
+                saved={job.jobkey in this.state.jobsSaved}
               />
             );
-            // saved={Boolean(this.props.jobsSaved[job.jobkey])}
+            
           })}
           {this.state.currentPage > 0 && this.state.jobs.length != 0 ? (
-            <a href="#" className="pageButton" onClick={this.prevPage}>
+
+            <a href="#" className="change-page" onClick={this.prevPage}>
               Prev
             </a>
           ) : null}{" "}
           {this.state.jobs.length != 0 ? (
-            <a className="pageButton" href="#" onClick={this.nextPage}>
+
+            <a href="#" className="change-page" onClick={this.nextPage}>
+
               Next
             </a>
           ) : null}
-          {/* {Object.keys(this.state.jobsSaved).length !== 0 ?
-          <div className="change-page-controls">
-            <button className="test" onClick={this.changePage} id="page-last">Previous Page</button>
-            <button onClick={this.changePage} id="page-next">Next Page</button>
-          </div>
-          :
-          null
-        } */}
+
         </div>
       </div>
     );
