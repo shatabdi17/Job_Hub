@@ -1,16 +1,15 @@
 import React from 'react';
-import Link from 'react-router-dom';
+import JobSaved from './JobSaved';
+import {Link, NavLink, Route, BrowserRouter as Router} from 'react-router-dom';
 
-class Footer extends React.Component {
-
-    render() {
-        return (
-            <div>
-
-        
-            </div>
+const Footer = (props) => {
+        return  (
+            <footer>
+                {props.loggedIn === true ? <div className="threeButtons"><Link to='/'>Search Again</Link>
+                    <Link to='/mysavedjobs'>Saved Jobs</Link> {props.loggedIn === true ? <a href="#" onClick={props.signOut}>Sign Out</a> : <a href="#" onClick={props.signIn}>Sign In</a>}</div> : <div className="oneButton"><a href="#" onClick={props.signIn}>Sign In</a></div>}
+                {/* {props.loggedIn === true ? <a href="#" onClick={props.signOut}>Sign Out</a> : <a href="#" onClick={props.signIn}>Sign In</a>} */}
+            </footer>
         )
-    }
 }
 
-export default footer;
+export default Footer

@@ -1,5 +1,6 @@
 import React from 'react';
 import firebase from 'firebase';
+import JobSearchResults from './JobSearchResults';
 
 
 class Notes extends React.Component {

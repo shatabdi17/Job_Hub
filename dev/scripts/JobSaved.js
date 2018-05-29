@@ -1,109 +1,143 @@
 import React from 'react';
 import firebase from 'firebase';
 import axios from 'axios';
-import {BrowserRouter as Router, Route,Link,NavLink} from "react-router-dom";
 import JobSearchResults from './JobSearchResults';
 
 
-// Initialize Firebase
-// const config = {
-//     apiKey: "AIzaSyAHiIrKkJmdgDWIRWZEejkNxjfha7cExVs",
-//     authDomain: "job-search-13455.firebaseapp.com",
-//     databaseURL: "https://job-search-13455.firebaseio.com",
-//     projectId: "job-search-13455",
-//     storageBucket: "",
-//     messagingSenderId: "959198869600"
-// };
+class JobSaved extends React.Component {
+    constructor(props) {
+        super(props)
 
-// firebase.initializeApp(config);
+        this.state = {
+            jobsSaved: [],
+            jobsAppliedFor: []
+        }
 
+        this.saveJob = this.saveJob.bind(this);
+        this.applyForJob = this.applyForJob.bind(this);
+    }
+    componentDidMount() {
+        firebase.auth().onAuthStateChanged(user => {
+            if (user !== null) {
+                this.setState({
+                    loggedIn: true,
+                    user: user.uid,
+                    userName: user.displayName,
+                    userPhoto: user.photoURL
+                });
+                this.dbRef = firebase.database().ref(`users/${this.state.user}`);
+                console.log(this.dbRef);
+                this.dbRef.on("value", snapshot => {
+                    console.log(snapshot.val());
+                    if (snapshot.val().jobsSaved) {
+                        //Take the snapshot.val().jobSaved
+                        //convert that to an array
+                        //for...in one way
+                        //Object.keys another way
+                        this.setState({
+                            jobsSaved: Object.values(snapshot.val().jobsSaved)
+                        });
 
-// class JobSaved extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             user: null,
-//             userName: '',
-//             // loggedIn: false,
-//             jobsSaved: {}
-//         };
+                        if (snapshot.val().jobsAppliedFor) {
+                            //Same for down here
+                            this.setState({
+                                jobsAppliedFor: Object.values(snapshot.val().jobsAppliedFor)
+                            });
+                        }
+                    } else {
+                        this.setState({
+                            loggedIn: false
+                        });
+                    }
+                });
+            }
+        });
+    }
 
-//         this.signOut = this.signOut.bind(this);
-//         this.signIn = this.signIn.bind(this);
-//     }
-//     componentDidMount() {
+    saveJob(jobObject) {
+        const jobkey = jobObject.jobkey;
+        // get currently saved jobs from state
+        let jobsSaved = this.state.jobsSaved;
 
-//         let dbRef = firebase.database().ref(`users/${this.state.user}`);
+        // if job has been saved, remove saved job
+        if (jobsSaved[jobkey]) {
+            delete jobsSaved[jobkey];
+        }
+        //     // if job has not been saved, add job to saved jobs
+        else {
+            jobsSaved[jobkey] = jobObject;
+        }
+        // set state
+        this.setState({
+            jobsSaved: jobsSaved
+        });
 
-//         firebase.auth().onAuthStateChanged((user) => {
-//             if (user) {
-//                 this.dbRef.on('value', (snapshot) => {
-//                     //console.log(snapshot.val());
-//                     if (snapshot.val().jobsSaved) {
-//                         this.setState({
-//                             jobsSaved: snapshot.val().jobsSaved
-//                         })
-//                     }
-//                 });
-//                 this.setState({
-//                     loggedIn: true,
-//                     user: user.uid,
-//                     userName: user.displayName
-//                 });
-//             } else {
-//                 this.setState({
-//                     user: null,
-//                     userName: '',
-//                     loggedIn: false,
-//                     jobsSaved: {}
-//                 });
-//             }
+        if (this.state.loggedIn && this.state.user !== null) {
+            this.dbRef = firebase
+                .database()
+                .ref(`users/${this.state.user}/jobsSaved`);
+            this.dbRef.set(jobsSaved);
+            //console.log("Job saved");
+        }
+    }
 
+    applyForJob(jobObject) {
+        const jobkey = jobObject.jobkey;
+        let appliedFor = this.state.jobsAppliedFor;
+        appliedFor[jobkey] = jobObject;
+        //appliedFor[jobkey].jobApplication = this.state.userApplication;
 
-//         })
-//  }
+        let currentDate = new Date();
+        currentDate = currentDate.toString();
+        currentDate = currentDate.substring(0, 15);
+        appliedFor[jobkey].dateApplied = currentDate;
 
-//     /**
-//       * Signs the user in.
-//       */
-//     signIn() {
-//         const provider = new firebase.auth.GoogleAuthProvider();
-        
-//         firebase.auth().signInWithPopup(provider)
-//             .catch(function (error) {
-//                 console.log(error)
-//             }).then((result) => {
-//                 console.log(result)
-//             });
-//     }
+        let saved = this.state.jobsSaved;
+        // if job applied for has already been saved, update fields for the saved job
+        if (saved[jobkey]) {
+            saved[jobkey] = jobObject;
+            //saved[jobkey].jobApplication = this.state.userApplication;
+            saved[jobkey].dateApplied = currentDate;
+        }
 
-//     /**
-//      * Signs the user out.
-//      */
-//     signOut() {
-//         firebase.auth().signOut().then(function (success) {
-//             console.log('Signed out!')
-//         }, function (error) {
-//             console.log(error);
-//         });
-//     }
+        // update state
+        this.setState({
+            jobsAppliedFor: appliedFor,
+            jobsSaved: saved
+        });
 
+      // update database
+        if (this.state.loggedIn && this.state.user !== null) {
+            this.dbRef = firebase
+                .database()
+                .ref(`users/${this.state.user}/jobsAppliedFor`);
+            this.dbRef.set(appliedFor);
+            this.dbRefB = firebase
+                .database()
+                .ref(`users/${this.state.user}/jobsSaved`);
+            this.dbRefB.set(saved);
+        }
+    }
+    render() {
+        return (
+            <div>
+                {this.state.jobsSaved.map((job) => {
+                    return (
+                        <JobSearchResults
+                            key={`saved-${job.jobkey}`}
+                            job={job}
+                            loggedIn={this.state.loggedIn}
+                            onSave={this.saveJob}
+                            onApply={this.applyForJob}
+                            saved={null}
+                            applied={null}
+                        />
+                    )
+                })}
+                         
+            </div>
+        )
+    }
+}
 
-//     render() {
-//         return (
-//            <div>
-//                 {this.state.loggedIn === false && <button onClick=
-//                     {this.loginWithGoogle}>Log in with Google</button>}
-
-//                 {this.state.loggedIn === true ? <button onClick={this.logout}
-//                 >Log Out</button> : null}
-//            </div>
-//         )
-//     }
-//  }
-
-
-
-
-
-// export default JobSaved;
+export default JobSaved;
