@@ -4,7 +4,8 @@ import firebase from 'firebase';
 import axios from 'axios';
 import {BrowserRouter as Router,Route,Link,NavLink} from "react-router-dom";
 import JobSearchResults from './JobSearchResults';
-import swal from './sweetalert'
+import swal from './sweetalert';
+import Notes from './Notes';
 // import JobSaved from './JobSaved';
 
 // Initialize Firebase
@@ -84,7 +85,6 @@ class App extends React.Component {
       .auth()
       .signInWithPopup(provider)
       .then(user => {
-        console.log(user);
         this.setState({
           loggedIn: true
         });
@@ -121,7 +121,6 @@ class App extends React.Component {
         }
       })
       .then(res => {
-        console.log(res);
         this.setState({
           jobs: res.data.results
         });
@@ -227,21 +226,12 @@ class App extends React.Component {
           start: this.state.currentPage,
           limit: 10
         }
-      })
+      }
+    )
       .then(res => {
-        console.log(res);
         this.setState({ jobs: res.data.results });
-
-        if (res.data.results.length === 0) {
-          swal({
-            title: "Please select a valid city!",
-            icon: "warning",
-            button: "OK"
-          });
-        } else {
-          this.setState({ jobs: res.data.results });
-        }
-      })});
+      })
+    });
   }
 
   prevPage(e) {
@@ -301,14 +291,19 @@ class App extends React.Component {
             }}
             onChange={this.setLocationToSearch}
             id="location-input"
+            className="location-input"
             type="text"
             name=""
             id=""
             placeholder="Enter City"
           />
-          <button className="Search btn" onClick={this.searchForJobs}>
+          <button className="search btn" onClick={this.searchForJobs}>
             Find Jobs Now
           </button>
+        </div>
+
+        <div className="job-results">
+
           {this.state.jobs.map(job => {
             return (
               <JobSearchResults
@@ -324,12 +319,15 @@ class App extends React.Component {
             
           })}
           {this.state.currentPage > 0 && this.state.jobs.length != 0 ? (
-            <a href="#" onClick={this.prevPage}>
+
+            <a href="#" className="change-page" onClick={this.prevPage}>
               Prev
             </a>
           ) : null}{" "}
           {this.state.jobs.length != 0 ? (
-            <a href="#" onClick={this.nextPage}>
+
+            <a href="#" className="change-page" onClick={this.nextPage}>
+
               Next
             </a>
           ) : null}
