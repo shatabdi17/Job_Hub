@@ -25,8 +25,6 @@ body {
 .logo-header {
     width: 20%;
     margin: 20px auto;
-
-
     img {
         width: 100%;
     }
@@ -47,7 +45,6 @@ body {
         margin-bottom: 40px;
     }
 
-
     .search {
         background: black;
         border: none;
@@ -56,10 +53,10 @@ body {
     }
 }
 
-    button.signOut.btn,
-    button.signIn.btn {
-        padding: 5px 0;
-    }     
+button.signOut.btn,
+button.signIn.btn {
+    padding: 5px 0;
+}     
 
 
 .search-result {
@@ -76,6 +73,9 @@ body {
     font-size: 2rem;
 }
 
+.job-company {
+    font-size: 1.7rem;
+}
 .job-snippet {
     padding-right: 15px;
 }
@@ -84,7 +84,7 @@ body {
     text-transform: uppercase;
     font-size: 1.3rem;
     font-weight: bold;
-    padding-bottom: 15px;
+    padding: 15px 0;
 }
 
 .more-info,
@@ -110,6 +110,7 @@ body {
     position: absolute;
     right: 0;
     top: 30px;
+
 }
 
 .applied-button {
@@ -134,7 +135,7 @@ body {
 
 .saved-results {
     position: relative;
-    img {
+    .notes-button {
         position: absolute;
         top: 0;
         right: 20px;
@@ -182,4 +183,53 @@ footer a {
 
 footer a:hover {
     color: $black;
+}
+
+	
+@media (max-width: 480px) {
+.more-info,
+.apply-now  { 
+    display: inline-block;
+    width: 100%;  
+    margin: 10px auto;
+    text-align: center;
+}
+
+.job-snippet {
+    padding-right: 22px;
+}
+
+.saved-button {
+    position: absolute;
+    right: 0;
+    top: 30px;
+}
+
+.applied-button {
+    position: absolute;
+    right: 0;
+    top: 80px;
+}
+
+.search-result {
+    width: 95%;
+    padding: 20px;
+}
+
+.saved-results {
+    .notes-button {
+        top: -75px;
+    }
+}
+
+.notes {
+    textarea {
+        height: 50vh;
+        width: 80%;
+    }   
+    button {
+        width: 80%;
+    }
+}
+
 }

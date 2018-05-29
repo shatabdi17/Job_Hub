@@ -60,9 +60,7 @@ class App extends React.Component {
           userPhoto: user.photoURL
         });
         this.dbRef = firebase.database().ref(`users/${this.state.user}`);
-        console.log(this.dbRef);
         this.dbRef.on("value", snapshot => {
-          console.log(snapshot.val());
           if (snapshot.val().jobsSaved) {
             this.setState({
               jobsSaved: snapshot.val().jobsSaved
@@ -96,7 +94,6 @@ class App extends React.Component {
         });
       })
       .catch(err => {
-        console.log(err);
       });
   }
 
@@ -262,7 +259,6 @@ class App extends React.Component {
                   }
                 )
                 .then(res => {
-                  console.log(res);
                   this.setState({ jobs: res.data.results });
 
                   if (res.data.results.length === 0) {
@@ -282,70 +278,11 @@ class App extends React.Component {
       <Router>
         <div>
           <LogoHeader />
-          {/* <div className="landing-page">
-            {this.state.loggedIn === false && (
-              <button className="signIn btn" onClick={this.signIn}>
-                Log in with Google
-              </button>
-            )}
-            {this.state.loggedIn === true ? (
-              <button className="signOut btn" onClick={this.signOut}>
-                Log Out {this.state.userName}
-              </button>
-            ) : null}
-            <input
-              onKeyDown={e => {
-                if (e.keyCode === 13) this.searchForJobs();
-              }}
-              onChange={this.setLocationToSearch}
-              id="location-input"
-              className="location-input"
-              type="text"
-              name=""
-              id=""
-              placeholder="Enter City"
-            />
-            <button className="search btn" onClick={this.searchForJobs}>
-              Find Jobs Now
-            </button> */}
 
             <Route exact path="/" component={JobSearch} />
             <Route exact path="/mysavedjobs" component={JobSaved} />
             <Route exact path="/notes" component={Notes} />
             
-
-          {/* </div>
-          <div className="job-results">
-            {this.state.jobs.map(job => {
-              return (
-                <JobSearchResults
-                  key={job.jobkey}
-                  job={job}
-                  loggedIn={this.state.loggedIn}
-                  onSave={this.saveJob} 
-                  onApply={this.applyForJob}
-                  // saved={Object.keys(this.state.jobsSaved).includes(job.jobkey)}
-                  saved={job.jobkey in this.state.jobsSaved}
-                  applied={job.jobkey in this.state.jobsAppliedFor}
-                />
-              );
-              
-            })}
-            {this.state.currentPage > 0 && this.state.jobs.length != 0 ? (
-
-              <a href="#" className="change-page" onClick={this.prevPage}>
-                Prev
-              </a>
-            ) : null}{" "}
-            {this.state.jobs.length != 0 ? (
-
-              <a href="#" className="change-page" onClick={this.nextPage}>
-
-                Next
-              </a>
-            ) : null}
-
-          </div> */}
           <Footer signOut={this.signOut} signIn={this.signIn} loggedIn={this.state.loggedIn} />
         </div>
       </Router>
