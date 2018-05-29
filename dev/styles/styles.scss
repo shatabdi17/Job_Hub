@@ -50,6 +50,7 @@ body {
     width: 70%;
     padding: 30px;
     margin: 25px auto;
+    position: relative;
 }
 
 .job-title {
@@ -72,15 +73,26 @@ body {
     padding: 5px 10px;
 }
 
-
 .icon-button {
     border: none;
     background: transparent;
 }
 
 .icon {
-    height: 30px;
+    height: 40px;
     width: auto;
+}
+
+.saved-button {
+    position: absolute;
+    right: 0;
+    top: 30px;
+}
+
+.applied-button {
+    position: absolute;
+    right: 0;
+    top: 80px;
 }
 
 .change-page {

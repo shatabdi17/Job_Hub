@@ -14,14 +14,14 @@ const JobSearchResults = (props) => {
                 
                 <a className="apply-now" href={`${url}#apply-state-picker-container`} target="_blank">Apply Now </a>
 
-       
+
                 <button onClick={() =>
-                    props.onSave(props.job)} className="icon-button"> {props.saved ? <img src="/dev/styles/assets/delete-red.svg" alt="Remove from Saved Jobs" className="icon" /> : <img src="/dev/styles/assets/star-green.svg" alt="Add to Saved Jobs" className="icon" />}
+                    props.onSave(props.job)} className="icon-button saved-button"> {props.saved ? <img src="/dev/styles/assets/delete-red.svg" alt="Remove from Saved Jobs" className="icon" /> : <img src="/dev/styles/assets/star-green.svg" alt="Add to Saved Jobs" className="icon" />}
                 </button>
              
                 <button onClick={() => 
-                    props.onApply(props.job)} className="icon-button">
-                    {props.applied ? <img src="/dev/styles/assets/check-limegreen.svg" alt="Applied" className="icon" /> : <img src="/dev/styles/assets/delete-red.svg" alt="Remove from Saved Jobs" className="icon" /> }
+                    props.onApply(props.job)} className="icon-button applied-button">
+                    {props.applied ? <img src="/dev/styles/assets/check-limegreen.svg" alt="Applied" className="icon" /> : <img src="/dev/styles/assets/delete-red.svg" alt="Remove from Saved Jobs" className="icon" />}
                 </button>
 
                 {/* {indeedApply && <button onClick={() => props.onApply(props.job)} className="save-button">Applied</button>} */}

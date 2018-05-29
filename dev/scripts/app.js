@@ -28,6 +28,7 @@ class App extends React.Component {
       currentPage: 0,
       user: null,
       userName: "",
+      userPhoto: "",
       loggedIn: false,
       jobsAppliedFor: {},
       jobsSaved: {},
@@ -51,7 +52,8 @@ class App extends React.Component {
         this.setState({
           loggedIn: true,
           user: user.uid,
-          userName: user.displayName
+          userName: user.displayName,
+          userPhoto: user.photoURL
         });
         this.dbRef = firebase.database().ref(`users/${this.state.user}`);
         console.log(this.dbRef);
