@@ -287,14 +287,19 @@ class App extends React.Component {
             }}
             onChange={this.setLocationToSearch}
             id="location-input"
+            className="location-input"
             type="text"
             name=""
             id=""
             placeholder="Enter City"
           />
-          <button className="Search btn" onClick={this.searchForJobs}>
+          <button className="search btn" onClick={this.searchForJobs}>
             Find Jobs Now
           </button>
+        </div>
+
+        <div className="job-results">
+
           {this.state.jobs.map(job => {
             return (
               <JobSearchResults
@@ -308,12 +313,15 @@ class App extends React.Component {
             // saved={Boolean(this.props.jobsSaved[job.jobkey])}
           })}
           {this.state.currentPage > 0 && this.state.jobs.length != 0 ? (
-            <a href="#" className="pageButton" onClick={this.prevPage}>
+
+            <a href="#" className="change-page" onClick={this.prevPage}>
               Prev
             </a>
           ) : null}{" "}
           {this.state.jobs.length != 0 ? (
-            <a className="pageButton" href="#" onClick={this.nextPage}>
+
+            <a href="#" className="change-page" onClick={this.nextPage}>
+
               Next
             </a>
           ) : null}
