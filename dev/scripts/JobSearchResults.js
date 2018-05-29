@@ -8,7 +8,6 @@ const JobSearchResults = (props) => {
             <div id={jobkey} className="search-result">
                 <h3 className="job-title">{jobtitle}</h3>
                 <h4 className="job-company">{company}</h4>
-                {/* <p className="job-snippet" dangerouslySetInnerHTML={{ __html:props.snippet }}></p> */}
                 <p className="job-snippet">{snippet.replace(/<[^>]*>/g, '')}</p>
                 <p className="job-time">{formattedRelativeTime}</p>
                 <a className="more-info" href={url} target="_blank">More Info</a>
@@ -17,11 +16,12 @@ const JobSearchResults = (props) => {
 
                 {/* {this.props.jobsSaved ? (<img src="/dev/styles/assets/star-green.svg" alt="Save Job" className="icon" /> ) : (<img src="/dev/styles/assets/delete-red.svg" alt="Remove from Saved Jobs" className="icon" />)} */}
                 
-
                 <button onClick={() => props.onSave(props.job)} className="icon-button"><img src="/dev/styles/assets/star-green.svg" alt="Save Job" className="icon" /></button>
 
-                <button onClick={() => props.onApply(props.job)} className="icon-button"><img src="/dev/styles/assets/check-limegreen.svg" alt="applied" className="icon" /></button>
-
+                <button onClick={() =>
+                    props.onSave(props.job)} className="save-button"> {props.saved ? 'Delete Me' : 'Save Me'}</button>
+             
+                <button onClick={() => props.onApply(props.job)} className="save-button">Applied</button>
                 {/* {indeedApply && <button onClick={() => props.onApply(props.job)} className="save-button">Applied</button>} */}
             </div>
         </div>
