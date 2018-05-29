@@ -1,6 +1,7 @@
 import React from 'react';
 import firebase from 'firebase';
 
+
 class Notes extends React.Component {
     constructor() {
         super();
@@ -37,9 +38,11 @@ class Notes extends React.Component {
             <div>
                 <textarea onChange={this.handleChange} placeholder={this.state.noteText === '' ? 'Please type your notes here.' : null}>{this.state.noteText !== '' ? this.state.noteText : null}</textarea>
                 <button onClick={this.handleSubmit}>Click me</button>
+
             </div>
         )
     }
 }
+
 
 export default Notes;

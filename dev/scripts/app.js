@@ -28,6 +28,7 @@ class App extends React.Component {
       currentPage: 0,
       user: null,
       userName: "",
+      userPhoto: "",
       loggedIn: false,
       jobsAppliedFor: {},
       jobsSaved: {},
@@ -52,7 +53,7 @@ class App extends React.Component {
           loggedIn: true,
           user: user.uid,
           userName: user.displayName,
-          userPhoto:user.photoURL
+          userPhoto: user.photoURL
         });
         this.dbRef = firebase.database().ref(`users/${this.state.user}`);
         console.log(this.dbRef);
@@ -314,6 +315,7 @@ class App extends React.Component {
                 onApply={this.applyForJob}
                 // saved={Object.keys(this.state.jobsSaved).includes(job.jobkey)}
                 saved={job.jobkey in this.state.jobsSaved}
+                applied={job.jobkey in this.state.jobsAppliedFor}
               />
             );
             
