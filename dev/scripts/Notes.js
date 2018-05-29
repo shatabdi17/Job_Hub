@@ -15,6 +15,10 @@ class Notes extends React.Component {
         // If they have notes, show me the value of this notes key.
         // Set state of this component to value of text area.
         // Default stuff of inside of the textarea is the state of the note.
+        const dbRefMain = firebase.database().ref(`users/${this.props.user}`);
+        dbRefMain.on("value", snapshot => {
+            console.log(snapshot.val());
+        });
     }
 
     handleChange(e) {
@@ -24,7 +28,6 @@ class Notes extends React.Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault();
         console.log('clicked');
         const dbRefNotes = firebase.database().ref(`users/${this.props.user}/note`);
         dbRefNotes.set(this.state.noteText);
@@ -32,7 +35,7 @@ class Notes extends React.Component {
     render() {
         return(
             <div>
-                <textarea onChange={this.handleChange}></textarea>
+                <textarea onChange={this.handleChange} placeholder={this.state.noteText === '' ? 'Please type your notes here.' : null}>{this.state.noteText !== '' ? this.state.noteText : null}</textarea>
                 <button onClick={this.handleSubmit}>Click me</button>
             </div>
         )
