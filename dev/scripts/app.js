@@ -4,7 +4,8 @@ import firebase from 'firebase';
 import axios from 'axios';
 import {BrowserRouter as Router,Route,Link,NavLink} from "react-router-dom";
 import JobSearchResults from './JobSearchResults';
-import swal from './sweetalert'
+import swal from './sweetalert';
+import Notes from './Notes';
 // import JobSaved from './JobSaved';
 
 // Initialize Firebase
@@ -83,7 +84,6 @@ class App extends React.Component {
       .auth()
       .signInWithPopup(provider)
       .then(user => {
-        console.log(user);
         this.setState({
           loggedIn: true
         });
@@ -120,7 +120,6 @@ class App extends React.Component {
         }
       })
       .then(res => {
-        console.log(res);
         this.setState({
           jobs: res.data.results
         });
@@ -233,21 +232,12 @@ class App extends React.Component {
           start: this.state.currentPage,
           limit: 10
         }
-      })
+      }
+    )
       .then(res => {
-        console.log(res);
         this.setState({ jobs: res.data.results });
-
-        if (res.data.results.length === 0) {
-          swal({
-            title: "Please select a valid city!",
-            icon: "warning",
-            button: "OK"
-          });
-        } else {
-          this.setState({ jobs: res.data.results });
-        }
-      })});
+      })
+    });
   }
 
   prevPage(e) {
@@ -255,38 +245,26 @@ class App extends React.Component {
     this.setState({
       currentPage: this.state.currentPage - 10
     },() => {axios
-                .get(
-                  "https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",
-                  {
-                    params: {
-                      publisher: "2117056629901044",
-                      v: 2,
-                      format: "json",
-                      q: "Marketing",
-                      l: this.state.location,
-                      co: "ca",
+      .get(
+        "https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",
+        {
+          params: {
+            publisher: "2117056629901044",
+            v: 2,
+            format: "json",
+            q: "Marketing",
+            l: this.state.location,
+            co: "ca",
 
-                      start: this.state.currentPage,
-                      limit: 10
-                    }
-                  }
-                )
-                .then(res => {
-                  console.log(res);
-                  this.setState({ jobs: res.data.results });
-
-                  if (res.data.results.length === 0) {
-                    swal({
-                      title: "Please select a valid city!",
-                      icon: "warning",
-                      button: "OK"
-                    });
-                  } else {
-                    this.setState({ jobs: res.data.results });
-                  }
-                })});
-
-    
+            start: this.state.currentPage,
+            limit: 10
+          }
+        }
+      )
+      .then(res => {
+        this.setState({ jobs: res.data.results });
+      })
+    });    
   }
 
   render() {
@@ -335,12 +313,15 @@ class App extends React.Component {
             // saved={Boolean(this.props.jobsSaved[job.jobkey])}
           })}
           {this.state.currentPage > 0 && this.state.jobs.length != 0 ? (
+
             <a href="#" className="change-page" onClick={this.prevPage}>
               Prev
             </a>
           ) : null}{" "}
           {this.state.jobs.length != 0 ? (
+
             <a href="#" className="change-page" onClick={this.nextPage}>
+
               Next
             </a>
           ) : null}
