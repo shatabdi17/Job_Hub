@@ -32,6 +32,9 @@
   },
   "dependencies": {
     "firebase": "^5.0.3",
-    "node-sass": "^4.7.1"
+    "firebase-tools": "^3.18.5",
+    "node-sass": "^4.7.1",
+    "re-base": "^3.2.3",
+    "rebase": "^0.3.0"
   }
 }
