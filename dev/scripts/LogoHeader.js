@@ -7,6 +7,7 @@ class LogoHeader extends React.Component {
         return (
             <div className="logo-header">
                 <img src="/dev/styles/assets/JobHub-black.svg" alt="JobHub Logo" />
+                <p>Search.Save.Suceed.</p>
             </div>
         )
     }
