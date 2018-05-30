@@ -20,7 +20,7 @@ const JobSearchResults = (props) => {
              
                 {props.applied !== null && <button onClick={() => 
                     props.onApply(props.job)} className="icon-button applied-button">
-                    {props.applied ? <img src="/dev/styles/assets/check-limegreen.svg" alt="Applied" className="icon" /> : <img src="/dev/styles/assets/delete-red.svg" alt="Remove from Saved Jobs" className="icon" />}
+                    {props.applied ? <img src="/dev/styles/assets/check-limegreen.svg" alt="Applied" className="icon" /> : null }
                 </button>}
 
                 {/* {indeedApply && <button onClick={() => props.onApply(props.job)} className="save-button">Applied</button>} */}
