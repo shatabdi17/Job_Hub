@@ -94,8 +94,7 @@ class JobSearch extends React.Component {
         loggedIn: false
         });
     }
-
-
+    
     searchForJobs() {
         axios
             .get("https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch", {

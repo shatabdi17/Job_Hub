@@ -20,11 +20,13 @@ body {
 .btn {
     display: block;
     margin: 0 auto;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    
 }
 
 .logo-header {
     width: 20%;
-    margin: 20px auto;
+    margin: 60px auto 20px;
     img {
         width: 100%;
     }
@@ -38,14 +40,17 @@ body {
     .btn,
     .location-input {
         width: 250px;
-        padding: 5px 10px;
+        padding: 15px 7px;
         text-align: center;
         text-transform: uppercase;
+        border-radius:45px;
+        border: none;
+        font-weight:bold;
     }
 
     .location-input {
         margin-top: 20px;
-        margin-bottom: 40px;
+        margin-bottom: 30px;
     }
 
     .search {
@@ -94,11 +99,15 @@ body {
     text-transform: uppercase;
     margin-right: 15px;
     padding: 10px 20px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    border-radius:45px;
+  
 }
 
 .more-info:hover,
 .apply-now:hover {
-    background: $darkGrey;
+    background: #2EE59D;
+    color: $black;
 }
 
 .icon-button {

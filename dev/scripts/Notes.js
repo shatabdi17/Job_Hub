@@ -13,10 +13,6 @@ class Notes extends React.Component {
         this.handleChange = this.handleChange.bind(this);
     }
     componentDidMount() {
-        // Go to database at the user's id, look inside to see if they have notes.
-        // If they have notes, show me the value of this notes key.
-        // Set state of this component to value of text area.
-        // Default stuff of inside of the textarea is the state of the note.
         const dbRefMain = firebase.database().ref(`users/${this.props.user}`);
         dbRefMain.on("value", snapshot => {
             const theActualNote = Object.values(snapshot.val())[0];

@@ -15,12 +15,12 @@ const JobSearchResults = (props) => {
                 <a className="apply-now" href={`${url}#apply-state-picker-container`} target="_blank">Apply Now </a>
 
                {props.saved !== null && <button onClick={() =>
-                    props.onSave(props.job)} className="icon-button saved-button"> {props.saved ? <img src="/dev/styles/assets/delete-red.svg" alt="Remove from Saved Jobs" className="icon" /> : <img src="/dev/styles/assets/star-green.svg" alt="Add to Saved Jobs" className="icon" />}
+                    props.onSave(props.job)} className="icon-button saved-button"> {props.saved ? <img src="public/assets/delete-red.svg" alt="Remove from Saved Jobs" className="icon" /> : <img src="public/assets/star-green.svg" alt="Add to Saved Jobs" className="icon" />}
                </button> }
              
                 {props.applied !== null && <button onClick={() => 
                     props.onApply(props.job)} className="icon-button applied-button">
-                    {props.applied ? <img src="/dev/styles/assets/check-limegreen.svg" alt="Applied" className="icon" /> : null }
+                    {props.applied ? <img src="public/assets/check-limegreen.svg" alt="Applied" className="icon" /> : null }
                 </button>}
 
                 {/* {indeedApply && <button onClick={() => props.onApply(props.job)} className="save-button">Applied</button>} */}

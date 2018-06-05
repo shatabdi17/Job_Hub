@@ -50,18 +50,17 @@ class JobSaved extends React.Component {
 
     saveJob(jobObject) {
         const jobkey = jobObject.jobkey;
-        // get currently saved jobs from state
         let jobsSaved = this.state.jobsSaved;
 
-        // if job has been saved, remove saved job
+        
         if (jobsSaved[jobkey]) {
             delete jobsSaved[jobkey];
         }
-        // if job has not been saved, add job to saved jobs
+     
         else {
             jobsSaved[jobkey] = jobObject;
         }
-        // set state
+
         this.setState({
             jobsSaved: jobsSaved
         });
@@ -90,13 +89,11 @@ class JobSaved extends React.Component {
             saved[jobkey].dateApplied = currentDate;
         }
 
-        // update state
         this.setState({
             jobsAppliedFor: appliedFor,
             jobsSaved: saved
         });
 
-      // update database
         if (this.state.loggedIn && this.state.user !== null) {
             this.dbRef = firebase
                 .database()
@@ -111,7 +108,7 @@ class JobSaved extends React.Component {
     render() {
         return (
             <div className="saved-results">
-                <Link to="/notes"><img src="/dev/styles/assets/edit-black.svg" alt="add notes" className="notes-button"/></Link>
+                <Link to="/notes"><img src="public/assets/edit-black.svg" alt="add notes" className="notes-button"/></Link>
                 {this.state.jobsSaved.map((job) => {
                     return (
                         <JobSearchResults
@@ -124,8 +121,7 @@ class JobSaved extends React.Component {
                             applied={null}
                         />
                     )
-                })}
-                         
+                })}                        
             </div>
         )
     }

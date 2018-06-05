@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import firebase from 'firebase';
-import Rebase from "re-base";
 import axios from 'axios';
 import LogoHeader from './LogoHeader';
 import JobSearch from './JobSearch';
@@ -11,9 +10,8 @@ import JobSaved from './JobSaved';
 import Notes from './Notes';
 import Footer from './Footer';
 import {BrowserRouter as Router,Route,Link,NavLink} from "react-router-dom";
-// import JobSaved from './JobSaved';
 
-// Initialize Firebase
+
 const config = {
   apiKey: "AIzaSyAHiIrKkJmdgDWIRWZEejkNxjfha7cExVs",
   authDomain: "job-search-13455.firebaseapp.com",
@@ -80,9 +78,7 @@ class App extends React.Component {
       }
     });
   }
-  /**
-   * Signs the user in.
-   */
+  
   signIn() {
     const provider = new firebase.auth.GoogleAuthProvider();
 
@@ -98,9 +94,7 @@ class App extends React.Component {
       });
   }
 
-  /**
-   * Signs the user out.
-   */
+  
   signOut() {
     firebase.auth().signOut();
     //console.log('Signed out!')
@@ -153,28 +147,23 @@ class App extends React.Component {
     const jobkey = jobObject.jobkey;
     let appliedFor = this.state.jobsAppliedFor;
     appliedFor[jobkey] = jobObject;
-    //appliedFor[jobkey].jobApplication = this.state.userApplication;
-
+    
     let currentDate = new Date();
     currentDate = currentDate.toString();
     currentDate = currentDate.substring(0, 15);
     appliedFor[jobkey].dateApplied = currentDate;
 
     let saved = this.state.jobsSaved;
-    // if job applied for has already been saved, update fields for the saved job
     if (saved[jobkey]) {
       saved[jobkey] = jobObject;
-      //saved[jobkey].jobApplication = this.state.userApplication;
       saved[jobkey].dateApplied = currentDate;
     }
 
-    // update state
     this.setState({
       jobsAppliedFor: appliedFor,
       jobsSaved: saved
     });
 
-    // update database
     if (this.state.loggedIn && this.state.user !== null) {
       this.dbRef = firebase
         .database()
@@ -188,18 +177,16 @@ class App extends React.Component {
   }
   saveJob(jobObject) {
     const jobkey = jobObject.jobkey;
-    // get currently saved jobs from state
     let jobsSaved = this.state.jobsSaved;
 
-    // if job has been saved, remove saved job
     if (jobsSaved[jobkey]) {
       delete jobsSaved[jobkey];
     }
-    // if job has not been saved, add job to saved jobs
+
     else {
       jobsSaved[jobkey] = jobObject;
     }
-    // set state
+
     this.setState({
       jobsSaved: jobsSaved
     });
@@ -209,7 +196,6 @@ class App extends React.Component {
         .database()
         .ref(`users/${this.state.user}/jobsSaved`);
       this.dbRef.set(jobsSaved);
-      //console.log("Job saved");
     }
   }
 
@@ -250,7 +236,7 @@ class App extends React.Component {
                       publisher: "2117056629901044",
                       v: 2,
                       format: "json",
-                      q: "Marketing",
+                      q: "Front End Web Developer",
                       l: this.state.location,
                       co: "ca",
 
