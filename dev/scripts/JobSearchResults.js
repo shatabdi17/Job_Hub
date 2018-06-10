@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const JobSearchResults = (props) => {
-    const {jobkey, jobtitle, company, snippet, formattedRelativeTime, url, indeedApply} = props.job;
+    const {jobkey, jobtitle, company, snippet, formattedRelativeTime, url} = props.job;
     return (
         <div>
             <div className="search-result">
@@ -22,8 +22,6 @@ const JobSearchResults = (props) => {
                     props.onApply(props.job)} className="icon-button applied-button">
                     {props.applied ? <img src="public/assets/check-limegreen.svg" alt="Applied" className="icon" /> : null }
                 </button>}
-
-                {/* {indeedApply && <button onClick={() => props.onApply(props.job)} className="save-button">Applied</button>} */}
             </div>
         </div>
     )

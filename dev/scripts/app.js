@@ -31,7 +31,6 @@ class App extends React.Component {
       currentPage: 0,
       user: null,
       userName: "",
-      userPhoto: "",
       loggedIn: false,
       jobsAppliedFor: {},
       jobsSaved: {},
@@ -55,8 +54,8 @@ class App extends React.Component {
         this.setState({
           loggedIn: true,
           user: user.uid,
-          userName: user.displayName,
-          userPhoto: user.photoURL
+          userName: user.displayName
+        
         });
         this.dbRef = firebase.database().ref(`users/${this.state.user}`);
         this.dbRef.on("value", snapshot => {
@@ -97,7 +96,6 @@ class App extends React.Component {
   
   signOut() {
     firebase.auth().signOut();
-    //console.log('Signed out!')
     this.dbRef.off("value");
     this.setState({
       loggedIn: false
@@ -203,61 +201,16 @@ class App extends React.Component {
     e.preventDefault();
     this.setState({
       currentPage: this.state.currentPage + 10
-    },() => {axios
-      .get("https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch", {
-        params: {
-          publisher: "2117056629901044",
-          v: 2,
-          format: "json",
-          q: "Marketing",
-          l: this.state.location,
-          co: "ca",
-
-          start: this.state.currentPage,
-          limit: 10
-        }
-      }
-    )
-      .then(res => {
-        this.setState({ jobs: res.data.results });
-      })
-    });
+    },() => { this.searchForJobs()}
+  );
   }
 
   prevPage(e) {
     e.preventDefault();
     this.setState({
       currentPage: this.state.currentPage - 10
-    },() =>  {axios
-                .get(
-                  "https://cors-anywhere.herokuapp.com/api.indeed.com/ads/apisearch",
-                  {
-                    params: {
-                      publisher: "2117056629901044",
-                      v: 2,
-                      format: "json",
-                      q: "Front End Web Developer",
-                      l: this.state.location,
-                      co: "ca",
-
-                      start: this.state.currentPage,
-                      limit: 10
-                    }
-                  }
-                )
-                .then(res => {
-                  this.setState({ jobs: res.data.results });
-
-                  if (res.data.results.length === 0) {
-                    swal({
-                      title: "Please select a valid city!",
-                      icon: "warning",
-                      button: "OK"
-                    });
-                  } else {
-                    this.setState({ jobs: res.data.results });
-                  }
-                })});
+    },() =>  { this.searchForJobs()}
+  );
  }
 
   render() {
