@@ -19,12 +19,12 @@ class JobSaved extends React.Component {
     }
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
-            if (user !== null) {
+            if (!user) {
                 this.setState({
                     loggedIn: true,
                     user: user.uid,
-                    userName: user.displayName,
-                    userPhoto: user.photoURL
+                    userName: user.displayName
+                 
                 });
                 this.dbRef = firebase.database().ref(`users/${this.state.user}`);
                 this.dbRef.on("value", snapshot => {
@@ -65,7 +65,7 @@ class JobSaved extends React.Component {
             jobsSaved: jobsSaved
         });
 
-        if (this.state.loggedIn && this.state.user !== null) {
+        if (this.state.loggedIn && !this.state.user) {
             this.dbRef = firebase
                 .database()
                 .ref(`users/${this.state.user}/jobsSaved`);
@@ -94,7 +94,7 @@ class JobSaved extends React.Component {
             jobsSaved: saved
         });
 
-        if (this.state.loggedIn && this.state.user !== null) {
+        if (this.state.loggedIn && !this.state.user) {
             this.dbRef = firebase
                 .database()
                 .ref(`users/${this.state.user}/jobsAppliedFor`);
