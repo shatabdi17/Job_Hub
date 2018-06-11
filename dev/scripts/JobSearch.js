@@ -30,7 +30,7 @@ class JobSearch extends React.Component {
     
     componentDidMount() {
         firebase.auth().onAuthStateChanged(user => {
-            if (!user) {
+            if (user) {
                 this.setState({
                     loggedIn: true,
                     user: user.uid,
