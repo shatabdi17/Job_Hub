@@ -7,4 +7,4 @@ JobHub is a job search application we made using the Indeed API that allows user
 Client brief: Our client asked that we make a job board for Marketing Jobs, using the Indeed API. He wanted the user to be able to set their location and be provided with a list of marketing jobs in their area. He also requested that the user be able to save selected jobs and track information such as whether or not they have applied, as well as save notes.
 
 Tools used: 
-HTML5 , CSS3 , SASS , JavaScript ES6 , AXIOS , REST API ,Firebase , Google Authentication , React Router , Mob Programming
+HTML5 , CSS3 , SASS , JavaScript ES6 , AXIOS , REST API ,Firebase , Google Authentication , React Router
